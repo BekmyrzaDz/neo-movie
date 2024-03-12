@@ -1,0 +1,41 @@
+$black-color: #000;
+$white-color: #ffffff;
+$grey-color: #919191;
+
+.wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+
+	height: 40px;
+	padding: 9px 12px;
+	border-radius: 30px;
+	margin-top: 5px;
+	background: $white-color;
+
+	& > .icon {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+.input {
+	width: 100%;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 22px;
+	border: none;
+
+	&:focus {
+		outline: none;
+	}
+
+	::placeholder {
+		color: $grey-color;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 12px;
+	}
+}

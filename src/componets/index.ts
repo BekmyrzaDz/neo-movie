@@ -1,3 +1,5 @@
 import Button from './Button/Button'
+import Header from './Header/Header'
+import Input from './Input/Input'
 
-export { Button }
+export { Button, Header, Input }
