@@ -65,14 +65,17 @@ const Header = () => {
 							</ul>
 						</nav>
 						<div className={styles.verticalLine}></div>
-						<div className={styles.favorite}>
+						<NavLink
+							className={clsx(styles.favorite, setActive)}
+							to='/favorites'
+						>
 							<img
 								src={favoriteOutline}
 								alt='Favorite icon'
 								className={styles.favoriteIcon}
 							/>
 							<p className={styles.favoriteText}>сохраненные</p>
-						</div>
+						</NavLink>
 					</div>
 				</div>
 			</div>
