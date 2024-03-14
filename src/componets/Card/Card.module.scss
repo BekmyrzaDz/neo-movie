@@ -1,0 +1,22 @@
+$black-color: #000000;
+
+.cardImg {
+	width: 220px;
+	height: 290px;
+	margin-bottom: 16px;
+}
+
+.cardTitle {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: $black-color;
+}
+
+.cardSubtitle {
+	font-family: Montserrat;
+	font-weight: 300;
+	font-size: 12px;
+	line-height: 15px;
+}

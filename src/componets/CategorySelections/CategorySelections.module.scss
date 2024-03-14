@@ -1,0 +1,16 @@
+$main-red-color: #d72b2b;
+
+.title {
+	font-family: Montserrat;
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 37px;
+	color: $main-red-color;
+	margin-bottom: 40px;
+}
+
+.categorySelection {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+}
