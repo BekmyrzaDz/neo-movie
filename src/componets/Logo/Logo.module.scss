@@ -1,0 +1,21 @@
+$white-color: #ffffff;
+
+.logo {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	text-decoration: none;
+}
+
+.logoImg {
+	width: 36px;
+	height: 36px;
+}
+
+.logoTitle {
+	font-family: Lexend;
+	font-weight: 700;
+	font-size: 36px;
+	line-height: 45px;
+	color: $white-color;
+}

@@ -1,11 +1,15 @@
 import clsx from 'clsx'
 import { Link, NavLink } from 'react-router-dom'
-import { Input } from '..'
-import { favoriteOutline, search, streamlineFilmSlate } from '../../assets'
+import { Input, Logo } from '..'
+import { favoriteOutline, search } from '../../assets'
 import styles from './Header.module.scss'
 
 const Header = () => {
-	const navList = [
+	interface INavList {
+		link: string
+		value: string
+	}
+	const navList: INavList[] = [
 		{ link: '/', value: 'главное' },
 		{ link: '/movies', value: 'фильмы' },
 		{ link: '/serials', value: 'сериалы' },
@@ -22,14 +26,7 @@ const Header = () => {
 			<div className={styles.headerTop}>
 				<div className={styles.container}>
 					<div className={styles.headerTopInner}>
-						<div className={styles.logo}>
-							<img
-								src={streamlineFilmSlate}
-								alt='Logo image'
-								className={styles.logoImg}
-							/>
-							<h2 className={styles.logoTitle}>Movie Matcher</h2>
-						</div>
+						<Logo />
 						<div className={styles.headerTopRight}>
 							<Input
 								className={styles.input}
