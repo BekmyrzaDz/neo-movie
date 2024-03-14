@@ -6,7 +6,7 @@ interface ICard {
 	id: number
 	title: string
 	image: string
-	countryOfOrigin: string
+	countryOfOrigin?: string
 	rating?: number
 	collection?: {
 		name?: string

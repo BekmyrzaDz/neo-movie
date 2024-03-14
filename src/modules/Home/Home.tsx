@@ -1,4 +1,4 @@
-import { CategorySelections, Header } from '../../componets'
+import { CategorySelections, Footer, Header } from '../../componets'
 import styles from './Home.module.scss'
 import { categorySelectionList } from './mockData'
 
@@ -44,6 +44,7 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	)
 }

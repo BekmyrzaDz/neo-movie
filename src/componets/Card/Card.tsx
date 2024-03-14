@@ -4,7 +4,7 @@ import styles from './Card.module.scss'
 interface ICard {
 	title: string
 	image: string
-	countryOfOrigin: string
+	countryOfOrigin?: string
 	rating?: number
 	collection?: {
 		name?: string
