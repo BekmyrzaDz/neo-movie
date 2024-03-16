@@ -1,8 +1,27 @@
+import { useEffect } from 'react'
 import { CategorySelections, Footer, Header } from '../../componets'
+import { useAppDispatch } from '../../hooks/redux'
 import styles from './Home.module.scss'
 import { categorySelectionList } from './mockData'
+import { fetchMoviesByType } from './redux/asyncActions'
 
 const Home = () => {
+	const dispatch = useAppDispatch()
+
+	interface IMovieParams {
+		type: string
+		limit: number
+	}
+
+	const movieParams: IMovieParams = {
+		type: 'фильмы',
+		limit: 4,
+	}
+
+	useEffect(() => {
+		dispatch(fetchMoviesByType(movieParams))
+	}, [dispatch])
+
 	return (
 		<div className={styles.home}>
 			<Header />
