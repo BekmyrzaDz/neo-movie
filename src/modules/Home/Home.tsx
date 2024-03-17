@@ -1,25 +1,25 @@
 import { useEffect } from 'react'
-import { CategorySelections, Footer, Header } from '../../componets'
+import { CategorySelections, FilterBar, Footer, Header } from '../../componets'
 import { useAppDispatch } from '../../hooks/redux'
 import styles from './Home.module.scss'
 import { categorySelectionList } from './mockData'
-import { fetchMoviesByType } from './redux/asyncActions'
+// import { fetchMoviesByType } from './redux/asyncActions'
 
 const Home = () => {
 	const dispatch = useAppDispatch()
 
-	interface IMovieParams {
-		type: string
-		limit: number
-	}
+	// interface IMovieParams {
+	// 	type: string
+	// 	limit: number
+	// }
 
-	const movieParams: IMovieParams = {
-		type: 'фильмы',
-		limit: 4,
-	}
+	// const movieParams: IMovieParams = {
+	// 	type: 'фильмы',
+	// 	limit: 4,
+	// }
 
 	useEffect(() => {
-		dispatch(fetchMoviesByType(movieParams))
+		// dispatch(fetchMoviesByType(movieParams))
 	}, [dispatch])
 
 	return (
@@ -53,13 +53,14 @@ const Home = () => {
 									categorySelection={categorySelectionList}
 								/>
 							</div>
-							<div className={styles.category}>
+							<div>
 								<CategorySelections
 									title='Подборки'
 									categorySelection={categorySelectionList}
 								/>
 							</div>
 						</div>
+						<FilterBar />
 					</div>
 				</div>
 			</div>

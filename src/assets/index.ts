@@ -1,5 +1,6 @@
 // Icons
 import favoriteOutline from './icons/favoriteOutline.svg'
+import filterIcon from './icons/filterIcon.svg'
 import search from './icons/search.svg'
 import streamlineFilmSlate from './icons/streamlineFilmSlate.svg'
 
@@ -14,6 +15,7 @@ export {
 	duna,
 	ellaAndTheBlackJaguar,
 	favoriteOutline,
+	filterIcon,
 	notFoundImg,
 	oppenheimer,
 	search,

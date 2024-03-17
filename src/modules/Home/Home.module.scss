@@ -3,6 +3,12 @@
 	margin: 0 auto;
 }
 
+.homeContentInner {
+	display: grid;
+	grid-template-columns: 1fr 506px;
+	gap: 90px;
+}
+
 .category {
-	margin-top: 80px;
+	margin-bottom: 80px;
 }
