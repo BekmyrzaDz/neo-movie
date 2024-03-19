@@ -1,0 +1,14 @@
+.container {
+	width: 1680px;
+	margin: 0 auto;
+}
+
+.serialContentInner {
+	display: grid;
+	grid-template-columns: 1fr 506px;
+	gap: 90px;
+}
+
+.category {
+	margin-bottom: 80px;
+}

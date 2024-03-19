@@ -10,7 +10,7 @@ $main-red-color: #d72b2b;
 }
 
 .categorySelection {
-	display: flex;
-	align-items: start;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 40px 68px;
 }
