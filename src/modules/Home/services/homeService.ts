@@ -11,6 +11,12 @@ interface IMovie {
 	}
 }
 
+interface ICollection {
+	id: number
+	name: string
+	image: string
+}
+
 interface IMovieListData {
 	page: number
 	count1: number
@@ -19,7 +25,7 @@ interface IMovieListData {
 	results: IMovie[]
 }
 
-// Get Movie List
+// Get Movies By Type
 const getMoviesByType = async ({
 	type,
 	limit,
@@ -35,8 +41,16 @@ const getMoviesByType = async ({
 	return response.data
 }
 
+// Get Movie List
 const getMoviesList = async (): Promise<IMovieListData> => {
 	const response = await axios.get('/movie/list/')
+
+	return response.data
+}
+
+// Get Collection List
+const getCollectionList = async (): Promise<ICollection[]> => {
+	const response = await axios.get('/movie/collection/list/')
 
 	return response.data
 }
@@ -44,6 +58,7 @@ const getMoviesList = async (): Promise<IMovieListData> => {
 const homeService = {
 	getMoviesList,
 	getMoviesByType,
+	getCollectionList,
 }
 
 export default homeService

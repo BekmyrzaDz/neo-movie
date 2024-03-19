@@ -13,6 +13,12 @@ interface IMovie {
 	}
 }
 
+interface ICollection {
+	id: number
+	name: string
+	image: string
+}
+
 interface IMovieListData {
 	page: number
 	count1: number
@@ -43,6 +49,57 @@ export const fetchMoviesByType = createAsyncThunk<
 	}
 })
 
+// Fetch Movies by type Action
+export const fetchSerialsByType = createAsyncThunk<
+	IMovieListData,
+	IMovieParams,
+	{ rejectValue: string }
+>('home/fetchSerialsByType', async (movieParams, thunkAPI) => {
+	try {
+		const response = await homeService.getMoviesByType(movieParams)
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})
+
+// Fetch Movies by type Action
+export const fetchCartoonsByType = createAsyncThunk<
+	IMovieListData,
+	IMovieParams,
+	{ rejectValue: string }
+>('home/fetchCartoonsByType', async (movieParams, thunkAPI) => {
+	try {
+		const response = await homeService.getMoviesByType(movieParams)
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})
+
+// Fetch Movies by type Action
+export const fetchAnimeByType = createAsyncThunk<
+	IMovieListData,
+	IMovieParams,
+	{ rejectValue: string }
+>('home/fetchAnimeByType', async (movieParams, thunkAPI) => {
+	try {
+		const response = await homeService.getMoviesByType(movieParams)
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})
+
 // Fetch Movies List Action
 export const fetchMoviesList = createAsyncThunk<
 	IMovieListData,
@@ -51,6 +108,22 @@ export const fetchMoviesList = createAsyncThunk<
 >('home/fetchMovieList', async (_, thunkAPI) => {
 	try {
 		const response = await homeService.getMoviesList()
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})
+// Fetch Collection List Action
+export const fetchCollectionList = createAsyncThunk<
+	ICollection[],
+	undefined,
+	{ rejectValue: string }
+>('home/fetchCollectionList', async (_, thunkAPI) => {
+	try {
+		const response = await homeService.getCollectionList()
 		return response
 	} catch (error: unknown) {
 		if (error instanceof AxiosError) {

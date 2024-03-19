@@ -1,6 +1,13 @@
 // import { IStudentState, IStudent } from '../types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchMoviesByType, fetchMoviesList } from './asyncActions'
+import {
+	fetchAnimeByType,
+	fetchCartoonsByType,
+	fetchCollectionList,
+	fetchMoviesByType,
+	fetchMoviesList,
+	fetchSerialsByType,
+} from './asyncActions'
 
 interface IMovie {
 	id: number
@@ -13,6 +20,12 @@ interface IMovie {
 	}
 }
 
+interface ICollection {
+	id: number
+	name: string
+	image: string
+}
+
 interface IMovieListData {
 	page: number
 	count1: number
@@ -23,7 +36,11 @@ interface IMovieListData {
 
 interface IHomeState {
 	movies: IMovieListData | null
+	serials: IMovieListData | null
+	cartoons: IMovieListData | null
+	anime: IMovieListData | null
 	movieList: IMovieListData | null
+	collectionList: ICollection[]
 	isLoading: boolean
 	isSuccess: boolean
 	isError: boolean
@@ -31,7 +48,11 @@ interface IHomeState {
 
 const initialState: IHomeState = {
 	movies: null,
+	serials: null,
+	cartoons: null,
+	anime: null,
 	movieList: null,
+	collectionList: [],
 	isLoading: false,
 	isSuccess: false,
 	isError: false,
@@ -64,6 +85,21 @@ export const homeSlice = createSlice({
 				state.isLoading = false
 				state.isError = true
 			})
+			.addCase(fetchCollectionList.pending, state => {
+				state.isLoading = true
+			})
+			.addCase(
+				fetchCollectionList.fulfilled,
+				(state, action: PayloadAction<ICollection[]>) => {
+					state.isLoading = false
+					state.isSuccess = true
+					state.collectionList = action.payload
+				}
+			)
+			.addCase(fetchCollectionList.rejected, state => {
+				state.isLoading = false
+				state.isError = true
+			})
 			.addCase(fetchMoviesByType.pending, state => {
 				state.isLoading = true
 			})
@@ -76,6 +112,51 @@ export const homeSlice = createSlice({
 				}
 			)
 			.addCase(fetchMoviesByType.rejected, state => {
+				state.isLoading = false
+				state.isError = true
+			})
+			.addCase(fetchSerialsByType.pending, state => {
+				state.isLoading = true
+			})
+			.addCase(
+				fetchSerialsByType.fulfilled,
+				(state, action: PayloadAction<IMovieListData>) => {
+					state.isLoading = false
+					state.isSuccess = true
+					state.serials = action.payload
+				}
+			)
+			.addCase(fetchSerialsByType.rejected, state => {
+				state.isLoading = false
+				state.isError = true
+			})
+			.addCase(fetchCartoonsByType.pending, state => {
+				state.isLoading = true
+			})
+			.addCase(
+				fetchCartoonsByType.fulfilled,
+				(state, action: PayloadAction<IMovieListData>) => {
+					state.isLoading = false
+					state.isSuccess = true
+					state.cartoons = action.payload
+				}
+			)
+			.addCase(fetchCartoonsByType.rejected, state => {
+				state.isLoading = false
+				state.isError = true
+			})
+			.addCase(fetchAnimeByType.pending, state => {
+				state.isLoading = true
+			})
+			.addCase(
+				fetchAnimeByType.fulfilled,
+				(state, action: PayloadAction<IMovieListData>) => {
+					state.isLoading = false
+					state.isSuccess = true
+					state.anime = action.payload
+				}
+			)
+			.addCase(fetchAnimeByType.rejected, state => {
 				state.isLoading = false
 				state.isError = true
 			})

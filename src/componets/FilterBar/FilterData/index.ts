@@ -32,7 +32,7 @@ export const filterParams: IFilterParams = {
 	},
 	genres: {
 		type: 'checkbox',
-		name: 'checked',
+		name: 'genre',
 		values: [
 			{
 				value: 'Семейные',

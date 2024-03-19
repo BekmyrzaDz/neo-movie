@@ -7,7 +7,7 @@ import { filterParams } from './FilterData'
 
 interface IInitalValues {
 	category: string
-	checked: string[]
+	genre: string[]
 	country: string[]
 	year: string
 }
@@ -15,7 +15,7 @@ interface IInitalValues {
 const FilterBar = () => {
 	const initialValues: IInitalValues = {
 		category: '',
-		checked: [],
+		genre: [],
 		country: [],
 		year: '',
 	}

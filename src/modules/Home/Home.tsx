@@ -1,25 +1,63 @@
 import { useEffect } from 'react'
 import { CategorySelections, FilterBar, Footer, Header } from '../../componets'
-import { useAppDispatch } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Home.module.scss'
-import { categorySelectionList } from './mockData'
-// import { fetchMoviesByType } from './redux/asyncActions'
+import {
+	fetchAnimeByType,
+	fetchCartoonsByType,
+	fetchCollectionList,
+	fetchMoviesByType,
+	fetchSerialsByType,
+} from './redux/asyncActions'
+
+interface IMovie {
+	id: number
+	title: string
+	image: string
+	country_of_origin?: string
+	rating?: number
+	collection?: {
+		name?: string
+	}
+}
 
 const Home = () => {
 	const dispatch = useAppDispatch()
+	const { movies, serials, cartoons, anime, collectionList } = useAppSelector(
+		state => state.home
+	)
 
-	// interface IMovieParams {
-	// 	type: string
-	// 	limit: number
-	// }
+	interface IMoviesByTypeParams {
+		type: string
+		limit: number
+	}
 
-	// const movieParams: IMovieParams = {
-	// 	type: 'фильмы',
-	// 	limit: 4,
-	// }
+	const movieParams: IMoviesByTypeParams = {
+		type: 'фильмы',
+		limit: 4,
+	}
+
+	const serialParams: IMoviesByTypeParams = {
+		type: 'сериалы',
+		limit: 4,
+	}
+
+	const cartoonsParams: IMoviesByTypeParams = {
+		type: 'мультфильмы',
+		limit: 4,
+	}
+
+	const animeParams: IMoviesByTypeParams = {
+		type: 'аниме',
+		limit: 4,
+	}
 
 	useEffect(() => {
-		// dispatch(fetchMoviesByType(movieParams))
+		dispatch(fetchMoviesByType(movieParams))
+		dispatch(fetchSerialsByType(serialParams))
+		dispatch(fetchCartoonsByType(cartoonsParams))
+		dispatch(fetchAnimeByType(animeParams))
+		dispatch(fetchCollectionList())
 	}, [dispatch])
 
 	return (
@@ -32,31 +70,31 @@ const Home = () => {
 							<div className={styles.category}>
 								<CategorySelections
 									title='Фильмы'
-									categorySelection={categorySelectionList}
+									categorySelection={movies?.results as IMovie[]}
 								/>
 							</div>
 							<div className={styles.category}>
 								<CategorySelections
 									title='Сериалы'
-									categorySelection={categorySelectionList}
+									categorySelection={serials?.results as IMovie[]}
 								/>
 							</div>
 							<div className={styles.category}>
 								<CategorySelections
 									title='Мультфильмы'
-									categorySelection={categorySelectionList}
+									categorySelection={cartoons?.results as IMovie[]}
 								/>
 							</div>
 							<div className={styles.category}>
 								<CategorySelections
 									title='Аниме'
-									categorySelection={categorySelectionList}
+									categorySelection={anime?.results as IMovie[]}
 								/>
 							</div>
 							<div>
 								<CategorySelections
 									title='Подборки'
-									categorySelection={categorySelectionList}
+									categorySelection={collectionList.slice(0, 4)}
 								/>
 							</div>
 						</div>

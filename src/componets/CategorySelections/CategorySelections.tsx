@@ -4,9 +4,10 @@ import styles from './CategorySelections.module.scss'
 
 interface ICard {
 	id: number
-	title: string
+	title?: string
 	image: string
-	countryOfOrigin?: string
+	name?: string
+	country_of_origin?: string
 	rating?: number
 	collection?: {
 		name?: string
@@ -26,12 +27,13 @@ const CategorySelections: FC<ICategorySelections> = ({
 		<section className={styles.categorySelectionsSection}>
 			<h2 className={styles.title}>{title}</h2>
 			<div className={styles.categorySelection}>
-				{categorySelection.map(category => (
+				{categorySelection?.map(category => (
 					<Card
-						key={category.id}
-						image={category.image}
-						title={category.title}
-						countryOfOrigin={category.countryOfOrigin}
+						key={category?.id}
+						image={category?.image}
+						title={category?.title as string}
+						name={category?.name as string}
+						country_of_origin={category?.country_of_origin}
 					/>
 				))}
 			</div>
