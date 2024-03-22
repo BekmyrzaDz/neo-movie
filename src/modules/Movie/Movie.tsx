@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
 	CategorySelections,
 	FilterBar,
@@ -6,19 +6,47 @@ import {
 	Header,
 	Pagination,
 } from '../../componets'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Movie.module.scss'
-import { categorySelectionList } from './mockData'
+import { fetchMoviesByType } from './redux/asyncActions'
+
+interface IMovie {
+	id: number
+	title: string
+	image: string
+	country_of_origin?: string
+	rating?: number
+	collection?: {
+		name?: string
+	}
+}
 
 const PageSize = 16
 
 const Movie = () => {
+	const dispatch = useAppDispatch()
+	const { movies } = useAppSelector(state => state.movie)
 	const [currentPage, setCurrentPage] = useState(1)
 
 	const currentTableData = useMemo(() => {
 		const firstPageIndex = (currentPage - 1) * PageSize
 		const lastPageIndex = firstPageIndex + PageSize
-		return categorySelectionList.slice(firstPageIndex, lastPageIndex)
+		return movies?.results?.slice(firstPageIndex, lastPageIndex)
 	}, [currentPage])
+
+	interface IMoviesByTypeParams {
+		type: string
+		limit: number
+	}
+
+	const movieParams: IMoviesByTypeParams = {
+		type: 'фильмы',
+		limit: 16,
+	}
+
+	useEffect(() => {
+		dispatch(fetchMoviesByType(movieParams))
+	}, [dispatch])
 
 	return (
 		<div className={styles.movie}>
@@ -30,7 +58,7 @@ const Movie = () => {
 							<div className={styles.category}>
 								<CategorySelections
 									title='Фильмы'
-									categorySelection={currentTableData}
+									categorySelection={currentTableData as IMovie[]}
 								/>
 							</div>
 						</div>
@@ -39,7 +67,7 @@ const Movie = () => {
 					<Pagination
 						className={styles.paginationBar}
 						currentPage={currentPage}
-						totalCount={categorySelectionList.length}
+						totalCount={movies?.results?.length as number}
 						pageSize={PageSize}
 						onPageChange={page => setCurrentPage(page)}
 					/>

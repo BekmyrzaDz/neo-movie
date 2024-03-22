@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import homeReducer from '../modules/Home/redux/homeSlice'
+import movieReducer from '../modules/Movie/redux/movieSlice'
 
 const rootReducer = combineReducers({
 	home: homeReducer,
+	movie: movieReducer,
 })
 
 export const setupStore = () => {
