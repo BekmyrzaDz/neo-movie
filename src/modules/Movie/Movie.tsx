@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
 	CategorySelections,
 	FilterBar,
@@ -28,11 +28,11 @@ const Movie = () => {
 	const { movies } = useAppSelector(state => state.movie)
 	const [currentPage, setCurrentPage] = useState(1)
 
-	const currentTableData = useMemo(() => {
-		const firstPageIndex = (currentPage - 1) * PageSize
-		const lastPageIndex = firstPageIndex + PageSize
-		return movies?.results?.slice(firstPageIndex, lastPageIndex)
-	}, [currentPage])
+	// const currentTableData = useMemo(() => {
+	// 	const firstPageIndex = (currentPage - 1) * PageSize
+	// 	const lastPageIndex = firstPageIndex + PageSize
+	// 	return movies?.results?.slice(firstPageIndex, lastPageIndex)
+	// }, [currentPage])
 
 	interface IMoviesByTypeParams {
 		type: string
@@ -58,7 +58,7 @@ const Movie = () => {
 							<div className={styles.category}>
 								<CategorySelections
 									title='Фильмы'
-									categorySelection={currentTableData as IMovie[]}
+									categorySelection={movies?.results as IMovie[]}
 								/>
 							</div>
 						</div>
@@ -67,7 +67,7 @@ const Movie = () => {
 					<Pagination
 						className={styles.paginationBar}
 						currentPage={currentPage}
-						totalCount={movies?.results?.length as number}
+						totalCount={movies?.results?.length || 0}
 						pageSize={PageSize}
 						onPageChange={page => setCurrentPage(page)}
 					/>
