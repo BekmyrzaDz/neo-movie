@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import animeReducer from '../modules/Anime/redux/animeSlice'
 import cartoonReducer from '../modules/Cartoon/redux/cartoonSlice'
 import homeReducer from '../modules/Home/redux/homeSlice'
 import movieReducer from '../modules/Movie/redux/movieSlice'
@@ -9,6 +10,7 @@ const rootReducer = combineReducers({
 	movie: movieReducer,
 	serial: serialReducer,
 	cartoon: cartoonReducer,
+	anime: animeReducer,
 })
 
 export const setupStore = () => {
