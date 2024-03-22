@@ -1,0 +1,49 @@
+$grey-color: #dcdcdc;
+$black-color: #000000;
+$white-color: #ffffff;
+$main-red-color: #d72b2b;
+
+.paginationContainer {
+	display: flex;
+	list-style-type: none;
+
+	.paginationItem {
+		padding: 14px 22px 14px 21px;
+		width: 50px;
+		height: 50px;
+		text-align: center;
+		color: $black-color;
+		background: $grey-color;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		letter-spacing: 0.01071em;
+		border-radius: 100%;
+		font-family: Montserrat;
+		font-weight: 400;
+		font-size: 18px;
+		line-height: 22px;
+
+		&.dots:hover {
+			cursor: default;
+		}
+		&:hover {
+			cursor: pointer;
+		}
+
+		&.selected {
+			background-color: $main-red-color;
+			color: $white-color;
+		}
+
+		.arrow {
+			width: 24px;
+			height: 24px;
+		}
+
+		&.disabled {
+			pointer-events: none;
+			opacity: 0;
+		}
+	}
+}

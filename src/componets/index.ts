@@ -6,6 +6,7 @@ import Footer from './Footer/Footer'
 import Header from './Header/Header'
 import Input from './Input/Input'
 import Logo from './Logo/Logo'
+import Pagination from './Pagination/Pagination.tsx'
 
 export {
 	Button,
@@ -16,4 +17,5 @@ export {
 	Header,
 	Input,
 	Logo,
+	Pagination,
 }
