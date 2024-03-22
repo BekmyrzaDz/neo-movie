@@ -1,8 +1,26 @@
-import { CategorySelections, FilterBar, Footer, Header } from '../../componets'
+import { useEffect, useState } from 'react'
+import {
+	CategorySelections,
+	FilterBar,
+	Footer,
+	Header,
+	Pagination,
+} from '../../componets'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Collection.module.scss'
-import { categorySelectionList } from './mockData'
+import { fetchCollectionList } from './redux/asyncActions'
+
+const PageSize = 16
 
 const Collection = () => {
+	const dispatch = useAppDispatch()
+	const { collectionList } = useAppSelector(state => state.collection)
+	const [currentPage, setCurrentPage] = useState(1)
+
+	useEffect(() => {
+		dispatch(fetchCollectionList())
+	}, [dispatch])
+
 	return (
 		<div className={styles.collection}>
 			<Header />
@@ -13,12 +31,19 @@ const Collection = () => {
 							<div className={styles.category}>
 								<CategorySelections
 									title='Подборки'
-									categorySelection={categorySelectionList}
+									categorySelection={collectionList}
 								/>
 							</div>
 						</div>
 						<FilterBar />
 					</div>
+					<Pagination
+						className={styles.paginationBar}
+						currentPage={currentPage}
+						totalCount={collectionList.length || 0}
+						pageSize={PageSize}
+						onPageChange={page => setCurrentPage(page)}
+					/>
 				</div>
 			</div>
 			<Footer />
