@@ -10,14 +10,14 @@ interface ICategory {
 }
 
 interface IFilterParams {
-	category: ICategory
+	categories: ICategory
 	genres: ICategory
-	year: ICategory
-	country: ICategory
+	years: ICategory
+	countries: ICategory
 }
 
 export const filterParams: IFilterParams = {
-	category: {
+	categories: {
 		type: 'radio',
 		name: 'category',
 		values: [
@@ -84,7 +84,7 @@ export const filterParams: IFilterParams = {
 			},
 		],
 	},
-	country: {
+	countries: {
 		type: 'checkbox',
 		name: 'country',
 		values: [
@@ -158,7 +158,7 @@ export const filterParams: IFilterParams = {
 			},
 		],
 	},
-	year: {
+	years: {
 		type: 'radio',
 		name: 'year',
 		values: [
@@ -168,7 +168,8 @@ export const filterParams: IFilterParams = {
 				label: '1991',
 			},
 			{ value: '1992', label: '1992' },
-			{ value: '1993', label: '1994' },
+			{ value: '1993', label: '1993' },
+			{ value: '1994', label: '1994' },
 			{ value: '1995', label: '1995' },
 			{ value: '1996', label: '1996' },
 			{ value: '1997', label: '1997' },

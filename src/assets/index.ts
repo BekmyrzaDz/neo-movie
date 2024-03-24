@@ -1,6 +1,7 @@
 // Icons
 import arrowLeft from './icons/arrowLeft.svg'
 import arrowRight from './icons/arrowRight.svg'
+import cross from './icons/cross.svg'
 import favoriteOutline from './icons/favoriteOutline.svg'
 import filterIcon from './icons/filterIcon.svg'
 import search from './icons/search.svg'
@@ -16,6 +17,7 @@ import wonka from './images/wonka.svg'
 export {
 	arrowLeft,
 	arrowRight,
+	cross,
 	duna,
 	ellaAndTheBlackJaguar,
 	favoriteOutline,

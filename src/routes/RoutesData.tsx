@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import {
 	AnimePage,
 	CartoonPage,
+	FilterPage,
 	HomePage,
 	MoviePage,
 	Page404,
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
 	{
 		path: '/collections',
 		element: <CollectionPage />,
+	},
+	{
+		path: '/filter',
+		element: <FilterPage />,
 	},
 	{
 		path: '*',
