@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import filterReducer from '../componets/FilterBar/redux/filterBarSlice'
 import animeReducer from '../modules/Anime/redux/animeSlice'
 import cartoonReducer from '../modules/Cartoon/redux/cartoonSlice'
 import collectionReducer from '../modules/Collection/redux/collectionSlice'
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
 	cartoon: cartoonReducer,
 	anime: animeReducer,
 	collection: collectionReducer,
+	filter: filterReducer,
 })
 
 export const setupStore = () => {

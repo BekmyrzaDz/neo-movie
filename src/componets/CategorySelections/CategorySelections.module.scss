@@ -1,4 +1,6 @@
 $main-red-color: #d72b2b;
+$black-color: #000000;
+$grey-color-3: #dcdcdc;
 
 .title {
 	font-family: Montserrat;
@@ -7,6 +9,43 @@ $main-red-color: #d72b2b;
 	line-height: 37px;
 	color: $main-red-color;
 	margin-bottom: 40px;
+}
+
+.filterTitle {
+	color: $black-color;
+	margin-bottom: 20px;
+}
+
+.genreGroup {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 40px;
+}
+
+.paramButton {
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 10px;
+	border-radius: 30px;
+	border: 1px solid $grey-color-3;
+}
+
+.paramText {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: $black-color;
+}
+
+.cross {
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
 }
 
 .categorySelection {

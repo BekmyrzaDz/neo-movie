@@ -21,13 +21,13 @@ export const filterParams: IFilterParams = {
 		type: 'radio',
 		name: 'category',
 		values: [
-			{ value: 'фильмы', label: 'Фильмы' },
+			{ value: 'Фильмы', label: 'Фильмы' },
 			{
-				value: 'мультфильмы',
+				value: 'Мультфильмы',
 				label: 'Мультфильмы',
 			},
-			{ value: 'сериалы', label: 'Сериалы' },
-			{ value: 'аниме', label: 'Аниме' },
+			{ value: 'Сериалы', label: 'Сериалы' },
+			{ value: 'Аниме', label: 'Аниме' },
 		],
 	},
 	genres: {

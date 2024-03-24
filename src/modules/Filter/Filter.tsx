@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
 	CategorySelections,
 	FilterBar,
@@ -6,9 +6,8 @@ import {
 	Header,
 	Pagination,
 } from '../../componets'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { useAppSelector } from '../../hooks/redux'
 import styles from './Filter.module.scss'
-import { fetchMoviesByType } from './redux/asyncActions'
 
 interface IMovie {
 	id: number
@@ -24,29 +23,9 @@ interface IMovie {
 const PageSize = 16
 
 const Filter = () => {
-	const dispatch = useAppDispatch()
-	const { movies } = useAppSelector(state => state.movie)
+	const { filtered } = useAppSelector(state => state.filter)
 	const [currentPage, setCurrentPage] = useState(1)
-
-	// const currentTableData = useMemo(() => {
-	// 	const firstPageIndex = (currentPage - 1) * PageSize
-	// 	const lastPageIndex = firstPageIndex + PageSize
-	// 	return movies?.results?.slice(firstPageIndex, lastPageIndex)
-	// }, [currentPage])
-
-	interface IMoviesByTypeParams {
-		type: string
-		limit: number
-	}
-
-	const movieParams: IMoviesByTypeParams = {
-		type: 'фильмы',
-		limit: 16,
-	}
-
-	useEffect(() => {
-		dispatch(fetchMoviesByType(movieParams))
-	}, [dispatch])
+	const [filteredParams, setFilteredParams] = useState<string[]>([])
 
 	return (
 		<div className={styles.filter}>
@@ -58,16 +37,17 @@ const Filter = () => {
 							<div className={styles.category}>
 								<CategorySelections
 									title='Найдено по запросу:'
-									categorySelection={movies?.results as IMovie[]}
+									categorySelection={filtered?.results as IMovie[]}
+									filteredParams={filteredParams}
 								/>
 							</div>
 						</div>
-						<FilterBar />
+						<FilterBar setFilteredParams={setFilteredParams} />
 					</div>
 					<Pagination
 						className={styles.paginationBar}
 						currentPage={currentPage}
-						totalCount={movies?.results?.length || 0}
+						totalCount={filtered?.results?.length || 0}
 						pageSize={PageSize}
 						onPageChange={page => setCurrentPage(page)}
 					/>

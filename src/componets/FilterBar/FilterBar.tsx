@@ -1,12 +1,19 @@
 import clsx from 'clsx'
 import { Field, Form, Formik } from 'formik'
+import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '..'
 import { cross, filterIcon } from '../../assets'
+import { useAppDispatch } from '../../hooks/redux'
 import styles from './FilterBar.module.scss'
 import { filterParams } from './FilterData'
+import { fetchMoviesByType } from './redux/asyncActions'
 
 const { categories, countries, genres, years } = filterParams
+
+interface IFilterBar {
+	setFilteredParams?: React.Dispatch<React.SetStateAction<string[]>>
+}
 
 interface IInitialValues {
 	category: string
@@ -15,24 +22,51 @@ interface IInitialValues {
 	year: string
 }
 
-const FilterBar = () => {
+const initialValues: IInitialValues = {
+	category: '',
+	genre: [],
+	country: [],
+	year: '',
+}
+
+const FilterBar: FC<IFilterBar> = ({ setFilteredParams }) => {
 	const navigate = useNavigate()
 
-	const initialValues: IInitialValues = {
-		category: '',
-		genre: [],
-		country: [],
-		year: '',
+	const dispatch = useAppDispatch()
+
+	interface IMoviesByTypeParams {
+		category: string
+		genre: string[]
+		country: string[]
+		year: string
 	}
 
 	const handleSubmit = (values: IInitialValues) => {
-		console.log(values)
-	}
+		const movieParams: IMoviesByTypeParams = {
+			category: values.category.toLowerCase(),
+			genre: values.genre.map(g => g.toLowerCase()),
+			country: values.country.map(c => c.toLowerCase()),
+			year: values.year,
+		}
 
-	const handleClick = () => {
+		try {
+			dispatch(fetchMoviesByType(movieParams))
+		} catch (error) {
+			console.log(error)
+		}
+
 		setTimeout(() => {
 			navigate('/filter')
 		}, 0)
+	}
+
+	const handleClick = (values: IInitialValues) => {
+		setFilteredParams?.([
+			values?.category,
+			...values.country,
+			...values.genre,
+			values?.year,
+		])
 	}
 
 	return (
@@ -225,12 +259,19 @@ const FilterBar = () => {
 										touched.year,
 								})}
 								type='submit'
-								onClick={handleClick}
+								onClick={() => handleClick(values)}
 							>
 								Найти
 							</Button>
 							<Button
-								className={styles.reset}
+								className={clsx(styles.reset, {
+									[styles.disableButton]: true,
+									[styles.activeButton]:
+										touched.category ||
+										touched.country ||
+										touched.genre ||
+										touched.year,
+								})}
 								type='button'
 								onClick={() => resetForm()}
 							>
