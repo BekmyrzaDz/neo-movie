@@ -53,9 +53,6 @@ export const filterSlice = createSlice({
 			state.isSuccess = false
 			state.isError = false
 		},
-		setFilterParams: (state, action) => {
-			state.filteredParams = action.payload
-		},
 		removeCategory: state => {
 			state.filteredParams && delete state.filteredParams?.category
 		},
@@ -97,12 +94,6 @@ export const filterSlice = createSlice({
 	},
 })
 
-export const {
-	reset,
-	setFilterParams,
-	removeCategory,
-	removeCountry,
-	removeGenre,
-	removeYear,
-} = filterSlice.actions
+export const { reset, removeCategory, removeCountry, removeGenre, removeYear } =
+	filterSlice.actions
 export default filterSlice.reducer

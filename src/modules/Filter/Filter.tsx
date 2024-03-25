@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
 	CategorySelections,
 	FilterBar,
@@ -20,12 +20,22 @@ interface IMovie {
 	}
 }
 
+interface IFilteredParams {
+	category: string
+	genre: string[] | undefined
+	country: string[] | undefined
+	year: string
+}
+
 const PageSize = 16
 
 const Filter = () => {
-	const { filtered } = useAppSelector(state => state.filter)
+	const { filtered, filteredParams } = useAppSelector(state => state.filter)
 	const [currentPage, setCurrentPage] = useState(1)
-	const [filteredParams, setFilteredParams] = useState<string[]>([])
+
+	useEffect(() => {
+		console.log('state', filteredParams)
+	}, [filteredParams])
 
 	return (
 		<div className={styles.filter}>
@@ -38,11 +48,11 @@ const Filter = () => {
 								<CategorySelections
 									title='Найдено по запросу:'
 									categorySelection={filtered?.results as IMovie[]}
-									filteredParams={filteredParams}
+									filteredParams={filteredParams as IFilteredParams}
 								/>
 							</div>
 						</div>
-						<FilterBar setFilteredParams={setFilteredParams} />
+						<FilterBar />
 					</div>
 					<Pagination
 						className={styles.paginationBar}

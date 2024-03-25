@@ -22,10 +22,10 @@ interface IMovieListData {
 }
 
 interface IMoviesByTypeParams {
-	category: string
-	genre: string[]
-	country: string[]
-	year: string
+	category: string | undefined
+	genre: string[] | undefined
+	country: string[] | undefined
+	year: string | undefined
 }
 
 // Fetch Movies by type Action

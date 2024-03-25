@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import movieService from '../services/movieService'
+import filterService from '../services/filterService'
 
 interface IMovie {
 	id: number
@@ -21,36 +21,21 @@ interface IMovieListData {
 	results: IMovie[]
 }
 
-interface IMovieParams {
-	type: string
-	limit: number
+interface IMoviesByTypeParams {
+	category: string | undefined
+	genre: string[] | undefined
+	country: string[] | undefined
+	year: string | undefined
 }
 
 // Fetch Movies by type Action
 export const fetchMoviesByType = createAsyncThunk<
 	IMovieListData,
-	IMovieParams,
+	IMoviesByTypeParams,
 	{ rejectValue: string }
->('movie/fetchMoviesByType', async (movieParams, thunkAPI) => {
+>('filter/fetchMoviesByType', async (movieParams, thunkAPI) => {
 	try {
-		const response = await movieService.getMoviesByType(movieParams)
-		return response
-	} catch (error: unknown) {
-		if (error instanceof AxiosError) {
-			return thunkAPI.rejectWithValue(error.message)
-		}
-		throw error
-	}
-})
-
-// Fetch Movies List Action
-export const fetchMoviesList = createAsyncThunk<
-	IMovieListData,
-	undefined,
-	{ rejectValue: string }
->('home/fetchMovieList', async (_, thunkAPI) => {
-	try {
-		const response = await movieService.getMoviesList()
+		const response = await filterService.getMoviesByType(movieParams)
 		return response
 	} catch (error: unknown) {
 		if (error instanceof AxiosError) {

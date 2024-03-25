@@ -8,12 +8,9 @@ import { useAppDispatch } from '../../hooks/redux'
 import styles from './FilterBar.module.scss'
 import { filterParams } from './FilterData'
 import { fetchMoviesByType } from './redux/asyncActions'
+import { setFilterParams } from './redux/filterBarSlice'
 
 const { categories, countries, genres, years } = filterParams
-
-interface IFilterBar {
-	setFilteredParams?: React.Dispatch<React.SetStateAction<string[]>>
-}
 
 interface IInitialValues {
 	category: string
@@ -29,7 +26,7 @@ const initialValues: IInitialValues = {
 	year: '',
 }
 
-const FilterBar: FC<IFilterBar> = ({ setFilteredParams }) => {
+const FilterBar: FC = () => {
 	const navigate = useNavigate()
 
 	const dispatch = useAppDispatch()
@@ -49,6 +46,8 @@ const FilterBar: FC<IFilterBar> = ({ setFilteredParams }) => {
 			year: values.year,
 		}
 
+		dispatch(setFilterParams(values))
+
 		try {
 			dispatch(fetchMoviesByType(movieParams))
 		} catch (error) {
@@ -58,15 +57,6 @@ const FilterBar: FC<IFilterBar> = ({ setFilteredParams }) => {
 		setTimeout(() => {
 			navigate('/filter')
 		}, 0)
-	}
-
-	const handleClick = (values: IInitialValues) => {
-		setFilteredParams?.([
-			values?.category,
-			...values.country,
-			...values.genre,
-			values?.year,
-		])
 	}
 
 	return (
@@ -259,7 +249,6 @@ const FilterBar: FC<IFilterBar> = ({ setFilteredParams }) => {
 										touched.year,
 								})}
 								type='submit'
-								onClick={() => handleClick(values)}
 							>
 								Найти
 							</Button>

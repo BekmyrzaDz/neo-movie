@@ -40,8 +40,8 @@ const getMoviesByType = async ({
 	return response.data
 }
 
-const filterBarService = {
+const filterService = {
 	getMoviesByType,
 }
 
-export default filterBarService
+export default filterService
