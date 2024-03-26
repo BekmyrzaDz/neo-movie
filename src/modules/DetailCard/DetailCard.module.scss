@@ -1,0 +1,202 @@
+$main-red-color: #d72b2b;
+$white-color: #ffffff;
+$black-color: #000000;
+$grey-color: #919191;
+$grey-color-2: #dcdcdc;
+$grey-color-3: #aaaaaa;
+
+.container {
+	width: 1680px;
+	margin: 0 auto;
+}
+
+.detailContentInner {
+	display: flex;
+	flex-direction: column;
+	gap: 60px;
+}
+
+.detailContentTop {
+	display: grid;
+	grid-template-columns: 521px 1fr;
+	gap: 60px;
+}
+
+.detailContentTopLeft {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.detailImg {
+	width: 521px;
+	height: 721px;
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	background: $main-red-color;
+	width: 100%;
+	padding: 11px 190px;
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	border-radius: 30px;
+	border: none;
+	color: $white-color;
+	cursor: pointer;
+}
+
+.title {
+	font-family: Montserrat;
+	font-weight: 700;
+	font-size: 36px;
+	line-height: 43px;
+	color: $black-color;
+}
+
+.list {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.listItem {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: $grey-color;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+
+	span {
+		color: $black-color;
+	}
+}
+
+.description {
+	color: $black-color;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 27px;
+}
+
+.frames {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.framesTitle {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 36px;
+	line-height: 43px;
+	color: $black-color;
+}
+
+.framesImages {
+	display: grid;
+	grid-template-columns: repeat(4, 380px);
+	gap: 40px;
+}
+
+.framesImage {
+	width: 380px;
+	height: 220px;
+}
+
+.review {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	width: 1020px;
+}
+
+.reviewTitle {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 36px;
+	line-height: 43px;
+	color: $black-color;
+}
+
+.input {
+	background: $grey-color-2;
+	padding: 23px 0 23px 12px;
+	height: auto;
+	width: 100%;
+	color: $grey-color-3;
+
+	::placeholder {
+		font-family: Montserrat;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 24px;
+		color: $grey-color-3;
+		font-style: italic;
+	}
+}
+
+.reviews {
+	display: grid;
+	grid-template-columns: 50px 1fr;
+	gap: 20px;
+}
+
+.reviewsImg {
+	width: 50px;
+	height: 50px;
+}
+
+.reviewsContent {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.userNameWrapper {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.userName {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: $black-color;
+}
+
+.reviewTime {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 14px;
+	color: $black-color;
+}
+
+.review {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	color: $black-color;
+}
+
+.reply {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	color: $main-red-color;
+	text-decoration: underline;
+	cursor: pointer;
+}

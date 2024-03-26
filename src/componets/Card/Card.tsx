@@ -1,7 +1,9 @@
 import { FC } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import styles from './Card.module.scss'
 
 interface ICard {
+	id?: number
 	title?: string
 	image: string
 	name?: string
@@ -12,9 +14,12 @@ interface ICard {
 	}
 }
 
-const Card: FC<ICard> = ({ title, image, name, country_of_origin }) => {
+const Card: FC<ICard> = ({ id, title, image, name, country_of_origin }) => {
+	const { pathname } = useLocation()
+	const path = pathname === '/' ? '' : pathname
+
 	return (
-		<div className={styles.card}>
+		<Link className={styles.card} to={`${path}/${id}`}>
 			<img src={image} alt='Card image' className={styles.cardImg} />
 			<div className={styles.cardBottom}>
 				<h4 className={styles.cardTitle}>{title ? title : name}</h4>
@@ -22,7 +27,7 @@ const Card: FC<ICard> = ({ title, image, name, country_of_origin }) => {
 					<h5 className={styles.cardSubtitle}>{country_of_origin}</h5>
 				)}
 			</div>
-		</div>
+		</Link>
 	)
 }
 

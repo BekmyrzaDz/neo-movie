@@ -7,9 +7,9 @@ import styles from './Input.module.scss'
 const Input: FC<InputProps> = ({ className, icon, ...props }) => {
 	return (
 		<div className={clsx(styles.wrapper, className)}>
-			<img src={icon} alt='Input icon' className={styles.icon} />
+			{icon && <img src={icon} alt='Input icon' className={styles.icon} />}
 			<input
-				className={clsx(styles.input, className)}
+				className={clsx(styles.input)}
 				{...props}
 				placeholder={props.placeholder}
 			/>

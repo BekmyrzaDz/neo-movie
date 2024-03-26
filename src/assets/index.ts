@@ -4,6 +4,9 @@ import arrowRight from './icons/arrowRight.svg'
 import cross from './icons/cross.svg'
 import favoriteOutline from './icons/favoriteOutline.svg'
 import filterIcon from './icons/filterIcon.svg'
+import reviewProfile from './icons/reviewProfile.svg'
+import saved from './icons/saved.svg'
+import savedOutline from './icons/savedOutline.svg'
 import search from './icons/search.svg'
 import streamlineFilmSlate from './icons/streamlineFilmSlate.svg'
 
@@ -24,6 +27,9 @@ export {
 	filterIcon,
 	notFoundImg,
 	oppenheimer,
+	reviewProfile,
+	saved,
+	savedOutline,
 	search,
 	streamlineFilmSlate,
 	wonka,

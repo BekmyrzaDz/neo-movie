@@ -1,5 +1,11 @@
 $black-color: #000000;
 
+.card {
+	cursor: pointer;
+	text-decoration: none;
+	color: $black-color;
+}
+
 .cardImg {
 	width: 220px;
 	height: 290px;

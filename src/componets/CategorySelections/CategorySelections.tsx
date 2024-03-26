@@ -190,6 +190,7 @@ const CategorySelections: FC<ICategorySelections> = ({
 				{categorySelection?.map(category => (
 					<Card
 						key={category?.id}
+						id={category?.id}
 						image={category?.image}
 						title={category?.title as string}
 						name={category?.name as string}
