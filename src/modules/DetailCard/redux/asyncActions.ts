@@ -14,7 +14,7 @@ interface IMovie {
 	release_year: number
 	genres: Genre[]
 	detail_images: Detailimage[]
-	reviews: any[]
+	reviews: Reviews[]
 	collection: Genre
 	is_favorite: boolean
 	budget_amount?: string
@@ -26,6 +26,15 @@ interface Detailimage {
 
 interface Genre {
 	name: string
+}
+
+interface Reviews {
+	id: number
+	movie: number
+	user: number
+	text: string
+	parent_review: number
+	created_at: string
 }
 
 interface IMovieParam {
