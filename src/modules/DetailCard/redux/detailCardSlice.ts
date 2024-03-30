@@ -67,6 +67,20 @@ export const detailSlice = createSlice({
 				state.isLoading = false
 				state.isError = true
 			})
+		// .addCase(createFavoriteById.pending, state => {
+		// 	state.isLoading = true
+		// })
+		// .addCase(
+		// 	createFavoriteById.fulfilled,
+		// 	(state) => {
+		// 		state.isLoading = false
+		// 		state.isSuccess = true
+		// 	}
+		// )
+		// .addCase(createFavoriteById.rejected, state => {
+		// 	state.isLoading = false
+		// 	state.isError = true
+		// })
 	},
 })
 

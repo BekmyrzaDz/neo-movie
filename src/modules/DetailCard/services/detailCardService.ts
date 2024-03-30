@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios'
 import axios from '../../../api/axios'
 
 interface IMovie {
@@ -31,8 +32,21 @@ const getMovieById = async ({ id }: { id: number }): Promise<IMovie> => {
 	return response.data
 }
 
+// Add to favorites
+const createFavoriteById = async ({
+	id,
+}: {
+	id: number
+}): Promise<AxiosResponse> => {
+	const response = await axios.post(`/movie/add-to-favorites/${id}/`)
+	console.log('add favorite service', response)
+
+	return response
+}
+
 const detailCardService = {
 	getMovieById,
+	createFavoriteById,
 }
 
 export default detailCardService

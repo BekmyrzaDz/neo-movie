@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { AxiosError } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import detailCardService from '../services/detailCardService'
 
 interface IMovie {
@@ -39,6 +39,23 @@ export const fetchMovieById = createAsyncThunk<
 >('detail/fetchMovieById', async (movieParams, thunkAPI) => {
 	try {
 		const response = await detailCardService.getMovieById(movieParams)
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})
+
+// Create Favorite Action
+export const createFavoriteById = createAsyncThunk<
+	AxiosResponse,
+	IMovieParam,
+	{ rejectValue: string }
+>('detail/createFavoriteById', async (movieParams, thunkAPI) => {
+	try {
+		const response = await detailCardService.createFavoriteById(movieParams)
 		return response
 	} catch (error: unknown) {
 		if (error instanceof AxiosError) {

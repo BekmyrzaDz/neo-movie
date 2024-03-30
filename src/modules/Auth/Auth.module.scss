@@ -1,0 +1,75 @@
+$black-color: #000000;
+$black-color-2: #3b3b3b;
+$white-color: #ffffff;
+$grey-color-2: #dcdcdc;
+$grey-color-3: #aaaaaa;
+$grey-color-4: #919191;
+$main-red-color: #d72b2b;
+
+.title {
+	font-family: Montserrat;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 39px;
+	color: $black-color;
+	text-align: center;
+}
+
+.input {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	color: $black-color;
+
+	label {
+		font-family: Montserrat;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 19px;
+		color: $grey-color-4;
+	}
+
+	input {
+		background: $grey-color-2;
+		border-radius: 30px;
+		border: none;
+		padding: 10px;
+	}
+
+	:focus {
+		background: $white-color;
+		border: 1px solid $grey-color-3;
+	}
+}
+
+.email {
+	margin-bottom: 20px;
+}
+
+.password {
+	margin-bottom: 40px;
+}
+
+.button {
+	width: 100%;
+	border-radius: 20px;
+	border: none;
+	background: $grey-color-3;
+	padding: 8px 0;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+
+.activeButton {
+	background: $main-red-color;
+}
+
+.link {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 15px;
+	color: $black-color-2;
+	text-decoration: none;
+}

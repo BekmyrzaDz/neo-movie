@@ -4,6 +4,7 @@ $black-color: #000000;
 $grey-color: #919191;
 $grey-color-2: #dcdcdc;
 $grey-color-3: #aaaaaa;
+$grey-color-4: #91919140;
 
 .container {
 	width: 1680px;
@@ -161,6 +162,12 @@ $grey-color-3: #aaaaaa;
 	gap: 10px;
 }
 
+.reviewsContentTop {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .userNameWrapper {
 	display: flex;
 	align-items: center;
@@ -183,7 +190,43 @@ $grey-color-3: #aaaaaa;
 	color: $black-color;
 }
 
-.review {
+.threeDotsWrapper {
+	position: relative;
+}
+
+.threeDots {
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+
+.removeButton {
+	position: absolute;
+	top: 25px;
+	left: 0;
+	padding: 15px 14px;
+	border-radius: 30px;
+	background: $white-color;
+	color: $black-color;
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	box-shadow: 2px 2px 8px 0px $grey-color-4;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.trash {
+	width: 24px;
+	height: 24px;
+}
+
+.reviewText {
+	width: 719px;
 	font-family: Montserrat;
 	font-weight: 400;
 	font-size: 20px;
@@ -198,5 +241,28 @@ $grey-color-3: #aaaaaa;
 	line-height: 24px;
 	color: $main-red-color;
 	text-decoration: underline;
+	cursor: pointer;
+}
+
+.replyInputWrapper {
+	border-bottom: 1px solid $black-color;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.replyInput {
+	padding: 0;
+	border-radius: initial;
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	color: $black-color;
+}
+
+.sendLight {
+	width: 24px;
+	height: 24px;
 	cursor: pointer;
 }
