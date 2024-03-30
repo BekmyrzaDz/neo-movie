@@ -1,14 +1,76 @@
 import clsx from 'clsx'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Input, Logo } from '..'
+import { Input, Loader, Logo } from '..'
 import { favoriteOutline, search } from '../../assets'
+import { useDebounce } from '../../hooks/debounce'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Header.module.scss'
+import { fetchMoviesByName } from './redux/asyncActions'
+import { reset } from './redux/searchSlice'
+
+interface IMovie {
+	id: number
+	title: string
+	image: string
+	country_of_origin?: string
+	rating?: number
+	collection?: {
+		name?: string
+	}
+}
+
+interface INavList {
+	link: string
+	value: string
+}
 
 const Header = () => {
-	interface INavList {
-		link: string
-		value: string
+	const dispatch = useAppDispatch()
+	const { searchMovies, isLoading } = useAppSelector(state => state.search)
+	const [searchValue, setSearchValue] = useState<string>('')
+
+	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setSearchValue(e.target.value)
 	}
+
+	const debounced = useDebounce(searchValue, 300)
+
+	useEffect(() => {
+		if (debounced.length > 0) {
+			dispatch(fetchMoviesByName(debounced))
+		} else {
+			dispatch(reset())
+		}
+	}, [dispatch, debounced])
+
+	const setActive = ({ isActive }: { isActive: boolean }) =>
+		isActive ? styles.active : styles.navLink
+
+	function renderMovies(movies: IMovie[]) {
+		if (movies?.length > 0) {
+			return movies.map(movie => (
+				<Link className={styles.movie} to={`/${movie.id}`} key={movie.id}>
+					<img
+						className={styles.movieImg}
+						src={movie.image}
+						alt='Founded movie image'
+					/>
+					<div className={styles.movieNameGroup}>
+						<h5 className={styles.title}>{movie.title}</h5>
+						<p className={styles.country}>{movie.country_of_origin}</p>
+					</div>
+				</Link>
+			))
+		}
+
+		return (
+			<div className={styles.notFoundWrapper}>
+				<p className={styles.notFound}>Ничего не найдено</p>
+			</div>
+		)
+	}
+
 	const navList: INavList[] = [
 		{ link: '/', value: 'главное' },
 		{ link: '/movies', value: 'фильмы' },
@@ -18,9 +80,6 @@ const Header = () => {
 		{ link: '/collections', value: 'подборки' },
 	]
 
-	const setActive = ({ isActive }: { isActive: boolean }) =>
-		isActive ? styles.active : styles.navLink
-
 	return (
 		<div className={styles.header}>
 			<div className={styles.headerTop}>
@@ -28,12 +87,27 @@ const Header = () => {
 					<div className={styles.headerTopInner}>
 						<Logo />
 						<div className={styles.headerTopRight}>
-							<Input
-								className={styles.input}
-								name='search'
-								placeholder='Поиск'
-								icon={search}
-							/>
+							<div className={styles.inputWrapper}>
+								<Input
+									className={styles.input}
+									name='search'
+									value={searchValue}
+									placeholder='Поиск'
+									icon={search}
+									onChange={handleSearchChange}
+								/>
+								{debounced.length > 0 && (
+									<div className={styles.foundedMovies}>
+										{isLoading ? (
+											<div className={styles.loaderWrapper}>
+												<Loader />
+											</div>
+										) : (
+											renderMovies(searchMovies?.results as IMovie[])
+										)}
+									</div>
+								)}
+							</div>
 							<Link className={clsx(styles.link, styles.login)} to='/login'>
 								Войти
 							</Link>

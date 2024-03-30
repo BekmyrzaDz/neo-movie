@@ -2,6 +2,9 @@ $main-red-color: #d72b2b;
 $white-color: #ffffff;
 $black-color: #000000;
 $grey-color: #919191;
+$grey-color-2: #dcdcdc;
+
+$tran-04: all 0.4s ease;
 
 .header {
 	margin-bottom: 80px;
@@ -28,10 +31,102 @@ $grey-color: #919191;
 	gap: 60px;
 }
 
+.inputWrapper {
+	position: relative;
+}
+
 .input {
 	width: 450px;
 	font-family: Montserrat;
 	color: $black-color;
+}
+
+.foundedMovies {
+	position: absolute;
+	top: 50px;
+	padding: 14px;
+	width: 450px;
+	max-height: 356px;
+	height: 356px;
+	background: $white-color;
+	border-radius: 10px 10px 30px 30px;
+	border: 1px solid $grey-color-2;
+	box-shadow: 2px 2px 8px 0px #91919140;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	overflow-y: auto;
+}
+
+.loaderWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.foundedMovies::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE, Edge и Firefox */
+.foundedMovies {
+	-ms-overflow-style: none; /* IE и Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+.movie {
+	text-decoration: none;
+	display: flex;
+	align-items: start;
+	gap: 10px;
+	cursor: pointer;
+	transition: $tran-04;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+.movieImg {
+	width: 80px;
+	height: 100px;
+}
+
+.title {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 19px;
+	color: $black-color;
+}
+
+.country {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+	color: $black-color;
+}
+
+.notFoundWrapper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.notFound {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: $grey-color;
+	text-align: center;
+	margin: auto 0;
 }
 
 .link {

@@ -5,6 +5,7 @@ import FilterBar from './FilterBar/FilterBar'
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
 import Input from './Input/Input'
+import Loader from './Loader/Loader'
 import Logo from './Logo/Logo'
 import Modal from './Modal/Modal'
 import MyInput from './MyInput/MyInput'
@@ -18,6 +19,7 @@ export {
 	Footer,
 	Header,
 	Input,
+	Loader,
 	Logo,
 	Modal,
 	MyInput,

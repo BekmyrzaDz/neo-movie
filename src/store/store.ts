@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import filterReducer from '../componets/FilterBar/redux/filterBarSlice'
+import searchReducer from '../componets/Header/redux/searchSlice'
 import animeReducer from '../modules/Anime/redux/animeSlice'
 import cartoonReducer from '../modules/Cartoon/redux/cartoonSlice'
 import collectionReducer from '../modules/Collection/redux/collectionSlice'
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	collection: collectionReducer,
 	filter: filterReducer,
 	detail: detailReducer,
+	search: searchReducer,
 })
 
 export const setupStore = () => {
