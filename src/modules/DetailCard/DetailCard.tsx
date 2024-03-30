@@ -127,10 +127,12 @@ const DetailCard = () => {
 										<p className={styles.film_duration}>Длительность:</p>
 										<span>{movie?.film_duration}</span>
 									</li>
-									<li className={styles.listItem}>
-										<p className={styles.film_duration}>Бюджет:</p>
-										<span>135 000 000 $</span>
-									</li>
+									{movie?.budget_amount && (
+										<li className={styles.listItem}>
+											<p className={styles.film_duration}>Бюджет:</p>
+											<span>{movie?.budget_amount}</span>
+										</li>
+									)}
 									<li className={styles.listItem}>
 										<p className={styles.rating}>IMDb:</p>
 										<span>{movie?.rating} / 10</span>

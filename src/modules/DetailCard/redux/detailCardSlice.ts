@@ -16,6 +16,7 @@ interface IMovie {
 	reviews: any[]
 	collection: Genre
 	is_favorite: boolean
+	budget_amount?: string
 }
 
 interface Detailimage {

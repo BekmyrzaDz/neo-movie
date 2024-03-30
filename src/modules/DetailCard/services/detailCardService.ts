@@ -16,6 +16,7 @@ interface IMovie {
 	reviews: any[]
 	collection: Genre
 	is_favorite: boolean
+	budget_amount?: string
 }
 interface Detailimage {
 	image: string
@@ -27,7 +28,6 @@ interface Genre {
 // Get Movie By Id
 const getMovieById = async ({ id }: { id: number }): Promise<IMovie> => {
 	const response = await axios.get(`/movie/detail/${id}/`)
-	console.log('detail', response)
 
 	return response.data
 }
@@ -39,7 +39,6 @@ const createFavoriteById = async ({
 	id: number
 }): Promise<AxiosResponse> => {
 	const response = await axios.post(`/movie/add-to-favorites/${id}/`)
-	console.log('add favorite service', response)
 
 	return response
 }
