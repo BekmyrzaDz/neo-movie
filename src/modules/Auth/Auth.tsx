@@ -8,14 +8,16 @@ import { Button, MyInput } from '../../componets'
 import styles from './Auth.module.scss'
 
 interface ILogin {
-	email: string
+	username: string
 	password: string
 }
 
 // Login Schema
 const loginSchema = Yup.object().shape({
-	email: Yup.string()
-		.email('Неверный логин или почта')
+	username: Yup.string()
+		.typeError('Должно быть строкой')
+		.min(2, 'Минимум 2 символа')
+		.max(30, 'Максимум 30 символа')
 		.required('Обязательное поле'),
 	password: Yup.string()
 		.min(8, 'Пароль должен содержать не менее 8 символов')
@@ -23,7 +25,7 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues: ILogin = {
-	email: '',
+	username: '',
 	password: '',
 }
 
@@ -33,7 +35,7 @@ const handleSubmit = (values: ILogin) => {
 
 const Auth = () => {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
-	const toggleShowPassword = (): void => setShowPassword(!showPassword)
+	const toggleShowPassword = (): void => setShowPassword(prev => !prev)
 
 	return (
 		<div className={styles.auth}>
@@ -42,17 +44,24 @@ const Auth = () => {
 				initialValues={initialValues}
 				validationSchema={loginSchema}
 				onSubmit={handleSubmit}
+				enableReinitialize={true}
 			>
-				{({ touched, values, isValid }) => (
+				{({ values, isValid, isSubmitting }) => (
 					<Form className={styles.form}>
 						<MyInput
-							className={clsx(styles.input, styles.email)}
-							name='email'
-							type='email'
+							className={clsx(styles.input, styles.username, {
+								[styles.activeInput]: values.username.length > 0,
+							})}
+							id='username'
+							name='username'
+							type='text'
 							label='Логин'
 						/>
 						<MyInput
-							className={clsx(styles.input, styles.password)}
+							className={clsx(styles.input, styles.password, {
+								[styles.activeInput]: values.password.length > 0,
+							})}
+							id='password'
 							name='password'
 							type={showPassword ? 'text' : 'password'}
 							label='Пароль'
@@ -64,13 +73,12 @@ const Auth = () => {
 						<Button
 							className={clsx(styles.button, {
 								[styles.activeButton]:
-									touched.email &&
-									touched.password &&
-									values.email.length > 0 &&
+									values.username.length > 0 &&
 									values.password.length > 0 &&
-									isValid,
+									isValid &&
+									!isSubmitting,
 							})}
-							disabled={!isValid}
+							disabled={!isValid || isSubmitting}
 							type='submit'
 						>
 							Войти

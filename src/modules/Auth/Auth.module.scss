@@ -43,7 +43,18 @@ $main-red-color: #d72b2b;
 	}
 }
 
-.email {
+.activeInput {
+	input {
+		background: $white-color;
+		border: 1px solid $grey-color-3;
+	}
+
+	input[type='password'] {
+		font-size: 30px;
+	}
+}
+
+.username {
 	margin-bottom: 20px;
 }
 
