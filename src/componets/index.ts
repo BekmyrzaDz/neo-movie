@@ -1,6 +1,7 @@
 import Button from './Button/Button'
 import Card from './Card/Card'
 import CategorySelections from './CategorySelections/CategorySelections'
+import Checkbox from './Checkbox/Checkbox'
 import FilterBar from './FilterBar/FilterBar'
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
@@ -15,6 +16,7 @@ export {
 	Button,
 	Card,
 	CategorySelections,
+	Checkbox,
 	FilterBar,
 	Footer,
 	Header,

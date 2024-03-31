@@ -1,0 +1,60 @@
+$black-color: #000000;
+$main-red-color: #d72b2b;
+$grey-color: #aaaaaa;
+
+.label {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	color: $black-color;
+
+	& > span {
+		padding-left: 8px;
+	}
+}
+
+.checkboxWrapper {
+	display: flex;
+	align-items: center;
+
+	& > span {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		padding-left: 0;
+	}
+
+	.checkbox {
+		cursor: pointer;
+		opacity: 0;
+		position: absolute;
+	}
+
+	.checkbox:checked {
+		& + span::before {
+			content: url('../../assets/icons/check.svg');
+			background: $black-color;
+			border: 1px solid $black-color;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
+	& > span::before {
+		content: '';
+		border: 1px solid $grey-color;
+		width: 24px;
+		height: 24px;
+		border-radius: 6px;
+		margin-right: 8px;
+	}
+}
+
+.error {
+	color: $main-red-color;
+	position: absolute;
+	top: 70px;
+	left: 0;
+}

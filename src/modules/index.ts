@@ -6,6 +6,7 @@ import DetailCard from './DetailCard/DetailCard'
 import Filter from './Filter/Filter'
 import Home from './Home/Home'
 import Movie from './Movie/Movie'
+import Register from './Register/Register'
 import Serial from './Serial/Serial'
 
 export {
@@ -17,5 +18,6 @@ export {
 	Filter,
 	Home,
 	Movie,
+	Register,
 	Serial,
 }

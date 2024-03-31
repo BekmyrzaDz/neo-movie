@@ -5,7 +5,7 @@ import { Input, Loader, Logo, Modal } from '..'
 import { favoriteOutline, search } from '../../assets'
 import { useDebounce } from '../../hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { Auth } from '../../modules'
+import { Auth, Register } from '../../modules'
 import styles from './Header.module.scss'
 import { fetchMoviesByName } from './redux/asyncActions'
 import { reset } from './redux/searchSlice'
@@ -30,7 +30,8 @@ const Header = () => {
 	const dispatch = useAppDispatch()
 	const { searchMovies, isLoading } = useAppSelector(state => state.search)
 	const [searchValue, setSearchValue] = useState<string>('')
-	const [open, setOpen] = useState<boolean>(false)
+	const [openLogin, setOpenLogin] = useState<boolean>(false)
+	const [openRegister, setOpenRegister] = useState<boolean>(false)
 
 	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(e.target.value)
@@ -113,11 +114,14 @@ const Header = () => {
 								</div>
 								<div
 									className={clsx(styles.link, styles.login)}
-									onClick={() => setOpen(prev => !prev)}
+									onClick={() => setOpenLogin(prev => !prev)}
 								>
 									Войти
 								</div>
-								<div className={clsx(styles.link, styles.register)}>
+								<div
+									className={clsx(styles.link, styles.register)}
+									onClick={() => setOpenRegister(prev => !prev)}
+								>
 									Регистрация
 								</div>
 							</div>
@@ -154,9 +158,17 @@ const Header = () => {
 					</div>
 				</div>
 			</div>
-			{open && (
-				<Modal active={open} setActive={setOpen}>
+			{openLogin && (
+				<Modal active={openLogin} setActive={setOpenLogin}>
 					<Auth />
+				</Modal>
+			)}
+			{openRegister && (
+				<Modal active={openRegister} setActive={setOpenRegister}>
+					<Register
+						setOpenRegister={setOpenRegister}
+						setOpenLogin={setOpenLogin}
+					/>
 				</Modal>
 			)}
 		</>
