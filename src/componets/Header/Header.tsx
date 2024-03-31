@@ -1,10 +1,11 @@
 import clsx from 'clsx'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Input, Loader, Logo } from '..'
+import { Input, Loader, Logo, Modal } from '..'
 import { favoriteOutline, search } from '../../assets'
 import { useDebounce } from '../../hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { Auth } from '../../modules'
 import styles from './Header.module.scss'
 import { fetchMoviesByName } from './redux/asyncActions'
 import { reset } from './redux/searchSlice'
@@ -29,6 +30,7 @@ const Header = () => {
 	const dispatch = useAppDispatch()
 	const { searchMovies, isLoading } = useAppSelector(state => state.search)
 	const [searchValue, setSearchValue] = useState<string>('')
+	const [open, setOpen] = useState<boolean>(false)
 
 	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(e.target.value)
@@ -81,76 +83,83 @@ const Header = () => {
 	]
 
 	return (
-		<div className={styles.header}>
-			<div className={styles.headerTop}>
-				<div className={styles.container}>
-					<div className={styles.headerTopInner}>
-						<Logo />
-						<div className={styles.headerTopRight}>
-							<div className={styles.inputWrapper}>
-								<Input
-									className={styles.input}
-									name='search'
-									value={searchValue}
-									placeholder='Поиск'
-									icon={search}
-									onChange={handleSearchChange}
-								/>
-								{debounced.length > 0 && (
-									<div className={styles.foundedMovies}>
-										{isLoading ? (
-											<div className={styles.loaderWrapper}>
-												<Loader />
-											</div>
-										) : (
-											renderMovies(searchMovies?.results as IMovie[])
-										)}
-									</div>
-								)}
+		<>
+			<div className={styles.header}>
+				<div className={styles.headerTop}>
+					<div className={styles.container}>
+						<div className={styles.headerTopInner}>
+							<Logo />
+							<div className={styles.headerTopRight}>
+								<div className={styles.inputWrapper}>
+									<Input
+										className={styles.input}
+										name='search'
+										value={searchValue}
+										placeholder='Поиск'
+										icon={search}
+										onChange={handleSearchChange}
+									/>
+									{debounced.length > 0 && (
+										<div className={styles.foundedMovies}>
+											{isLoading ? (
+												<div className={styles.loaderWrapper}>
+													<Loader />
+												</div>
+											) : (
+												renderMovies(searchMovies?.results as IMovie[])
+											)}
+										</div>
+									)}
+								</div>
+								<div
+									className={clsx(styles.link, styles.login)}
+									onClick={() => setOpen(prev => !prev)}
+								>
+									Войти
+								</div>
+								<div className={clsx(styles.link, styles.register)}>
+									Регистрация
+								</div>
 							</div>
-							<Link className={clsx(styles.link, styles.login)} to='/login'>
-								Войти
-							</Link>
-							<Link
-								className={clsx(styles.link, styles.register)}
-								to='/register'
+						</div>
+					</div>
+				</div>
+				<div className={styles.headerBottom}>
+					<div className={styles.container}>
+						<div className={styles.headerBottomInner}>
+							<nav className={styles.navbar}>
+								<ul className={styles.list}>
+									{navList.map((list, i) => (
+										<li className={styles.listItem} key={i}>
+											<NavLink className={setActive} to={list.link}>
+												{list.value}
+											</NavLink>
+										</li>
+									))}
+								</ul>
+							</nav>
+							<div className={styles.verticalLine}></div>
+							<NavLink
+								className={clsx(styles.favorite, setActive)}
+								to='/favorites'
 							>
-								Регистрация
-							</Link>
+								<img
+									src={favoriteOutline}
+									alt='Favorite icon'
+									className={styles.favoriteIcon}
+								/>
+								<p className={styles.favoriteText}>сохраненные</p>
+							</NavLink>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div className={styles.headerBottom}>
-				<div className={styles.container}>
-					<div className={styles.headerBottomInner}>
-						<nav className={styles.navbar}>
-							<ul className={styles.list}>
-								{navList.map((list, i) => (
-									<li className={styles.listItem} key={i}>
-										<NavLink className={setActive} to={list.link}>
-											{list.value}
-										</NavLink>
-									</li>
-								))}
-							</ul>
-						</nav>
-						<div className={styles.verticalLine}></div>
-						<NavLink
-							className={clsx(styles.favorite, setActive)}
-							to='/favorites'
-						>
-							<img
-								src={favoriteOutline}
-								alt='Favorite icon'
-								className={styles.favoriteIcon}
-							/>
-							<p className={styles.favoriteText}>сохраненные</p>
-						</NavLink>
-					</div>
-				</div>
-			</div>
-		</div>
+			{open && (
+				<Modal active={open} setActive={setOpen}>
+					<Auth />
+				</Modal>
+			)}
+		</>
 	)
 }
 
