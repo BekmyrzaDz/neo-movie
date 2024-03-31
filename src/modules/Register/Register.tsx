@@ -58,12 +58,13 @@ const Register: FC<RegisterProps> = ({ setOpenRegister, setOpenLogin }) => {
 				validationSchema={registerSchema}
 				onSubmit={handleSubmit}
 			>
-				{({ touched, values, isValid, isSubmitting }) => (
+				{({ values, isValid, isSubmitting }) => (
 					<Form className={styles.form}>
 						<MyInput
 							className={clsx(styles.input, styles.username, {
 								[styles.activeInput]: values.username.length > 0,
 							})}
+							id='username'
 							name='username'
 							type='text'
 							label='Логин'
@@ -72,6 +73,7 @@ const Register: FC<RegisterProps> = ({ setOpenRegister, setOpenLogin }) => {
 							className={clsx(styles.input, styles.email, {
 								[styles.activeInput]: values.email.length > 0,
 							})}
+							id='email'
 							name='email'
 							type='email'
 							label='Email'
@@ -80,6 +82,7 @@ const Register: FC<RegisterProps> = ({ setOpenRegister, setOpenLogin }) => {
 							className={clsx(styles.input, styles.password, {
 								[styles.activeInput]: values.password.length > 0,
 							})}
+							id='password'
 							name='password'
 							type={showPassword ? 'text' : 'password'}
 							label='Пароль'
@@ -90,22 +93,21 @@ const Register: FC<RegisterProps> = ({ setOpenRegister, setOpenLogin }) => {
 						/>
 						<Checkbox
 							className={styles.checkbox}
-							name='checkbox'
+							id='remember'
+							name='remember'
 							type='checkbox'
 							label='Запомнить меня'
 						/>
 						<Button
 							className={clsx(styles.button, {
 								[styles.activeButton]:
-									touched.username &&
-									touched.email &&
-									touched.password &&
 									values.username.length > 0 &&
 									values.email.length > 0 &&
 									values.password.length > 0 &&
-									isValid,
+									isValid &&
+									!isSubmitting,
 							})}
-							disabled={isValid && isSubmitting}
+							disabled={!isValid || isSubmitting}
 							type='submit'
 						>
 							Зарегистрироваться
