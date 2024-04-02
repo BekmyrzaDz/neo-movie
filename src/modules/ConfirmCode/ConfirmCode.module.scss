@@ -13,6 +13,20 @@ $main-red-color: #d72b2b;
 	line-height: 39px;
 	color: $black-color;
 	text-align: center;
+	margin-bottom: 20px;
+}
+
+.subtitle {
+	text-align: center;
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 20px;
+	color: $grey-color-4;
+}
+
+.emailTitle {
+	margin-bottom: 40px;
 }
 
 .input {
@@ -54,11 +68,7 @@ $main-red-color: #d72b2b;
 	}
 }
 
-.username {
-	margin-bottom: 20px;
-}
-
-.password {
+.email {
 	margin-bottom: 40px;
 }
 
@@ -76,12 +86,12 @@ $main-red-color: #d72b2b;
 	background: $main-red-color;
 }
 
-.forgotPassword {
-	display: inline;
+.resendCode {
 	font-family: Montserrat;
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 15px;
-	color: $black-color-2;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: $grey-color-4;
 	cursor: pointer;
+	text-align: center;
 }

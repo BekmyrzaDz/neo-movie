@@ -104,8 +104,7 @@ const Register: FC<RegisterProps> = ({ setOpenRegister, setOpenLogin }) => {
 									values.username.length > 0 &&
 									values.email.length > 0 &&
 									values.password.length > 0 &&
-									isValid &&
-									!isSubmitting,
+									(isValid || isSubmitting),
 							})}
 							disabled={!isValid || isSubmitting}
 							type='submit'

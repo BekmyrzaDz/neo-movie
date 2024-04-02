@@ -5,7 +5,13 @@ import { Input, Loader, Logo, Modal } from '..'
 import { favoriteOutline, search } from '../../assets'
 import { useDebounce } from '../../hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { Auth, Register } from '../../modules'
+import {
+	Auth,
+	ConfirmCode,
+	CreatePassword,
+	ForgotPassword,
+	Register,
+} from '../../modules'
 import styles from './Header.module.scss'
 import { fetchMoviesByName } from './redux/asyncActions'
 import { reset } from './redux/searchSlice'
@@ -31,6 +37,9 @@ const Header = () => {
 	const { searchMovies, isLoading } = useAppSelector(state => state.search)
 	const [searchValue, setSearchValue] = useState<string>('')
 	const [openLogin, setOpenLogin] = useState<boolean>(false)
+	const [openForgotPassword, setOpenForgotPassword] = useState<boolean>(false)
+	const [openConfirmCode, setOpenConfirmCode] = useState<boolean>(false)
+	const [openCreatePassword, setOpenCreatePassword] = useState<boolean>(false)
 	const [openRegister, setOpenRegister] = useState<boolean>(false)
 
 	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -160,7 +169,10 @@ const Header = () => {
 			</div>
 			{openLogin && (
 				<Modal active={openLogin} setActive={setOpenLogin}>
-					<Auth />
+					<Auth
+						setOpenForgotPassword={setOpenForgotPassword}
+						setOpenLogin={setOpenLogin}
+					/>
 				</Modal>
 			)}
 			{openRegister && (
@@ -169,6 +181,28 @@ const Header = () => {
 						setOpenRegister={setOpenRegister}
 						setOpenLogin={setOpenLogin}
 					/>
+				</Modal>
+			)}
+			{openForgotPassword && (
+				<Modal active={openForgotPassword} setActive={setOpenForgotPassword}>
+					<ForgotPassword
+						setOpenForgotPassword={setOpenForgotPassword}
+						setOpenConfirmCode={setOpenConfirmCode}
+						setOpenLogin={setOpenLogin}
+					/>
+				</Modal>
+			)}
+			{openConfirmCode && (
+				<Modal active={openConfirmCode} setActive={setOpenConfirmCode}>
+					<ConfirmCode
+						setOpenConfirmCode={setOpenConfirmCode}
+						setOpenCreatePassword={setOpenCreatePassword}
+					/>
+				</Modal>
+			)}
+			{openCreatePassword && (
+				<Modal active={openCreatePassword} setActive={setOpenCreatePassword}>
+					<CreatePassword />
 				</Modal>
 			)}
 		</>

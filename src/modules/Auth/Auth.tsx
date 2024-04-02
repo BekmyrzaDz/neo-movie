@@ -1,11 +1,15 @@
 import clsx from 'clsx'
 import { Form, Formik } from 'formik'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { eye, eyeOff } from '../../assets'
 import { Button, MyInput } from '../../componets'
 import styles from './Auth.module.scss'
+
+interface AuthProps {
+	setOpenForgotPassword: React.Dispatch<React.SetStateAction<boolean>>
+	setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 interface ILogin {
 	username: string
@@ -33,9 +37,14 @@ const handleSubmit = (values: ILogin) => {
 	console.log(JSON.stringify(values, null, 2))
 }
 
-const Auth = () => {
+const Auth: FC<AuthProps> = ({ setOpenForgotPassword, setOpenLogin }) => {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 	const toggleShowPassword = (): void => setShowPassword(prev => !prev)
+
+	const toggleOpenForgotPassword = (): void => {
+		setOpenForgotPassword(prev => !prev)
+		setOpenLogin(prev => !prev)
+	}
 
 	return (
 		<div className={styles.auth}>
@@ -75,17 +84,19 @@ const Auth = () => {
 								[styles.activeButton]:
 									values.username.length > 0 &&
 									values.password.length > 0 &&
-									isValid &&
-									!isSubmitting,
+									(isValid || isSubmitting),
 							})}
-							disabled={!isValid || isSubmitting}
+							disabled={isValid || isSubmitting}
 							type='submit'
 						>
 							Войти
 						</Button>
-						<Link className={styles.link} to='/forgot-password'>
+						<p
+							className={styles.forgotPassword}
+							onClick={toggleOpenForgotPassword}
+						>
 							Забыли пароль?
-						</Link>
+						</p>
 					</Form>
 				)}
 			</Formik>
