@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Input, Loader, Logo, Modal } from '..'
+import { Input, Loader, Logo, Modal, Spinner } from '..'
 import { favoriteOutline, search } from '../../assets'
 import { useDebounce } from '../../hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
@@ -35,6 +35,19 @@ interface INavList {
 const Header = () => {
 	const dispatch = useAppDispatch()
 	const { searchMovies, isLoading } = useAppSelector(state => state.search)
+	const { isLoading: isAuthLoading } = useAppSelector(state => state.auth)
+	const { isLoading: isRegisterLoading } = useAppSelector(
+		state => state.register
+	)
+	const { isLoading: isForgotPasswordLoading } = useAppSelector(
+		state => state.forgotPassword
+	)
+	const { isLoading: isConfirmCodeLoading } = useAppSelector(
+		state => state.confirmCode
+	)
+	const { isLoading: isCreatePasswordLoading } = useAppSelector(
+		state => state.createPassword
+	)
 	const [searchValue, setSearchValue] = useState<string>('')
 	const [openLogin, setOpenLogin] = useState<boolean>(false)
 	const [openForgotPassword, setOpenForgotPassword] = useState<boolean>(false)
@@ -81,6 +94,26 @@ const Header = () => {
 				<p className={styles.notFound}>Ничего не найдено</p>
 			</div>
 		)
+	}
+
+	if (isRegisterLoading) {
+		return <Spinner />
+	}
+
+	if (isAuthLoading) {
+		return <Spinner />
+	}
+
+	if (isForgotPasswordLoading) {
+		return <Spinner />
+	}
+
+	if (isConfirmCodeLoading) {
+		return <Spinner />
+	}
+
+	if (isCreatePasswordLoading) {
+		return <Spinner />
 	}
 
 	const navList: INavList[] = [
@@ -133,6 +166,12 @@ const Header = () => {
 								>
 									Регистрация
 								</div>
+								{/* <Link
+									className={clsx(styles.link, styles.profile)}
+									to='/profile'
+								>
+									Профиль
+								</Link> */}
 							</div>
 						</div>
 					</div>
@@ -202,7 +241,7 @@ const Header = () => {
 			)}
 			{openCreatePassword && (
 				<Modal active={openCreatePassword} setActive={setOpenCreatePassword}>
-					<CreatePassword />
+					<CreatePassword setOpenCreatePassword={setOpenCreatePassword} />
 				</Modal>
 			)}
 		</>

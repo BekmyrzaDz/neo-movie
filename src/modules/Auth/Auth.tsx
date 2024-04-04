@@ -4,7 +4,9 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { eye, eyeOff } from '../../assets'
 import { Button, MyInput } from '../../componets'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Auth.module.scss'
+import { createAuthUser } from './redux/asyncActions'
 
 interface AuthProps {
 	setOpenForgotPassword: React.Dispatch<React.SetStateAction<boolean>>
@@ -33,10 +35,6 @@ const initialValues: ILogin = {
 	password: '',
 }
 
-const handleSubmit = (values: ILogin) => {
-	console.log(JSON.stringify(values, null, 2))
-}
-
 const Auth: FC<AuthProps> = ({ setOpenForgotPassword, setOpenLogin }) => {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 	const toggleShowPassword = (): void => setShowPassword(prev => !prev)
@@ -44,6 +42,24 @@ const Auth: FC<AuthProps> = ({ setOpenForgotPassword, setOpenLogin }) => {
 	const toggleOpenForgotPassword = (): void => {
 		setOpenForgotPassword(prev => !prev)
 		setOpenLogin(prev => !prev)
+	}
+
+	const toggleOpenLogin = () => {
+		setOpenLogin(prev => !prev)
+	}
+
+	const dispatch = useAppDispatch()
+	const { user } = useAppSelector(state => state.auth)
+	console.log('user', user)
+
+	const handleSubmit = (values: ILogin) => {
+		console.log(JSON.stringify(values, null, 2))
+		try {
+			dispatch(createAuthUser(values))
+			toggleOpenLogin()
+		} catch (e) {
+			console.log(e)
+		}
 	}
 
 	return (
@@ -86,7 +102,7 @@ const Auth: FC<AuthProps> = ({ setOpenForgotPassword, setOpenLogin }) => {
 									values.password.length > 0 &&
 									(isValid || isSubmitting),
 							})}
-							disabled={isValid || isSubmitting}
+							disabled={!isValid || isSubmitting}
 							type='submit'
 						>
 							Войти

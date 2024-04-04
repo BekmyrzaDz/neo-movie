@@ -11,6 +11,7 @@ import Logo from './Logo/Logo'
 import Modal from './Modal/Modal'
 import MyInput from './MyInput/MyInput'
 import Pagination from './Pagination/Pagination'
+import Spinner from './Spinner/Spinner'
 
 export {
 	Button,
@@ -26,4 +27,5 @@ export {
 	Modal,
 	MyInput,
 	Pagination,
+	Spinner,
 }

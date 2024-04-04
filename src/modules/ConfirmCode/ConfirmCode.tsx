@@ -2,7 +2,9 @@ import clsx from 'clsx'
 import { FC, FormEvent, useState } from 'react'
 import PinInput from 'react-pin-input'
 import { Button } from '../../componets'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './ConfirmCode.module.scss'
+import { createConfirmCode } from './redux/asyncActions'
 
 interface ConfirmCodeProps {
 	setOpenCreatePassword: React.Dispatch<React.SetStateAction<boolean>>
@@ -14,6 +16,9 @@ const ConfirmCode: FC<ConfirmCodeProps> = ({
 	setOpenConfirmCode,
 }) => {
 	const [value, setValue] = useState<string>('')
+	const dispatch = useAppDispatch()
+	const { code } = useAppSelector(state => state.confirmCode)
+	console.log('code', code)
 
 	const toggleOpenCreatePassword = (): void => {
 		setOpenCreatePassword(prev => !prev)
@@ -29,8 +34,11 @@ const ConfirmCode: FC<ConfirmCodeProps> = ({
 
 		console.log(JSON.stringify(value, null, 2))
 
-		if (value) {
+		try {
+			dispatch(createConfirmCode({ code: value }))
 			toggleOpenCreatePassword()
+		} catch (error) {
+			console.log(error)
 		}
 	}
 

@@ -2,11 +2,16 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import filterReducer from '../componets/FilterBar/redux/filterBarSlice'
 import searchReducer from '../componets/Header/redux/searchSlice'
 import animeReducer from '../modules/Anime/redux/animeSlice'
+import authReducer from '../modules/Auth/redux/authSlice'
 import cartoonReducer from '../modules/Cartoon/redux/cartoonSlice'
 import collectionReducer from '../modules/Collection/redux/collectionSlice'
+import confirmCodeReducer from '../modules/ConfirmCode/redux/confirmCodeSlice'
+import createPasswordReducer from '../modules/CreatePassword/redux/createPasswordSlice'
 import detailReducer from '../modules/DetailCard/redux/detailCardSlice'
+import forgotPasswordReducer from '../modules/ForgotPassword/redux/forgotPasswordSlice'
 import homeReducer from '../modules/Home/redux/homeSlice'
 import movieReducer from '../modules/Movie/redux/movieSlice'
+import registerReducer from '../modules/Register/redux/registerSlice'
 import serialReducer from '../modules/Serial/redux/serialSlice'
 
 const rootReducer = combineReducers({
@@ -19,6 +24,11 @@ const rootReducer = combineReducers({
 	filter: filterReducer,
 	detail: detailReducer,
 	search: searchReducer,
+	register: registerReducer,
+	auth: authReducer,
+	forgotPassword: forgotPasswordReducer,
+	confirmCode: confirmCodeReducer,
+	createPassword: createPasswordReducer,
 })
 
 export const setupStore = () => {

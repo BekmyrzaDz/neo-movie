@@ -4,7 +4,13 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { eye, eyeOff } from '../../assets'
 import { Button, MyInput } from '../../componets'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './CreatePassword.module.scss'
+import { createNewPassword } from './redux/asyncActions'
+
+interface CreatePasswordProps {
+	setOpenCreatePassword: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 interface ICreatePassword {
 	new_password: string
@@ -27,7 +33,10 @@ const initialValues: ICreatePassword = {
 	password_confirm: '',
 }
 
-const CreatePassword: FC = () => {
+const CreatePassword: FC<CreatePasswordProps> = ({ setOpenCreatePassword }) => {
+	const dispatch = useAppDispatch()
+	const { newPassword } = useAppSelector(state => state.createPassword)
+	console.log('newPassword', newPassword)
 	const [showNewPassword, setShowNewPassword] = useState<boolean>(false)
 	const toggleShowNewPassword = (): void => setShowNewPassword(prev => !prev)
 	const [showPasswordConfirm, setShowPasswordConfirm] = useState<boolean>(false)
@@ -36,6 +45,13 @@ const CreatePassword: FC = () => {
 
 	const handleSubmit = (values: ICreatePassword) => {
 		console.log(JSON.stringify(values, null, 2))
+
+		try {
+			dispatch(createNewPassword(values))
+			setOpenCreatePassword(prev => !prev)
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (

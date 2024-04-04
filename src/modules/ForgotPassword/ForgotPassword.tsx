@@ -3,7 +3,9 @@ import { Form, Formik } from 'formik'
 import { FC } from 'react'
 import * as Yup from 'yup'
 import { Button, MyInput } from '../../componets'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './ForgotPassword.module.scss'
+import { createForgotPassword } from './redux/asyncActions'
 
 interface ForgotPasswordProps {
 	setOpenForgotPassword: React.Dispatch<React.SetStateAction<boolean>>
@@ -41,10 +43,19 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({
 		setOpenLogin(prev => !prev)
 	}
 
+	const dispatch = useAppDispatch()
+	const { email } = useAppSelector(state => state.forgotPassword)
+	console.log('user', email)
+
 	const handleSubmit = (values: IForgotPassword) => {
 		console.log(JSON.stringify(values, null, 2))
 
-		toggleOpenConfirmCode()
+		try {
+			dispatch(createForgotPassword(values))
+			toggleOpenConfirmCode()
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (

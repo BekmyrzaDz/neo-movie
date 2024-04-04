@@ -4,7 +4,9 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { eye, eyeOff } from '../../assets'
 import { Button, Checkbox, MyInput } from '../../componets'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Register.module.scss'
+import { createUser } from './redux/asyncActions'
 
 interface RegisterProps {
 	setOpenRegister: React.Dispatch<React.SetStateAction<boolean>>
@@ -38,24 +40,31 @@ const initialValues: IRegister = {
 	password: '',
 }
 
-const handleSubmit = (values: IRegister) => {
-	const { username, email, password } = values
-
-	const newValues = {
-		username,
-		email,
-		password,
-	}
-
-	console.log(JSON.stringify(newValues, null, 2))
-}
-
 const Register: FC<RegisterProps> = ({ setOpenRegister, setOpenLogin }) => {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 	const toggleShowPassword = (): void => setShowPassword(prev => !prev)
 	const toggleOpenLogin = (): void => {
 		setOpenRegister(prev => !prev)
 		setOpenLogin(prev => !prev)
+	}
+	const dispatch = useAppDispatch()
+	const { isSuccess } = useAppSelector(state => state.register)
+
+	const handleSubmit = (values: IRegister) => {
+		const { username, email, password } = values
+
+		const newValues = {
+			username,
+			email,
+			password,
+		}
+
+		console.log(JSON.stringify(newValues, null, 2))
+		dispatch(createUser(newValues))
+
+		if (isSuccess) {
+			toggleOpenLogin()
+		}
 	}
 
 	return (
@@ -119,9 +128,7 @@ const Register: FC<RegisterProps> = ({ setOpenRegister, setOpenLogin }) => {
 						>
 							Зарегистрироваться
 						</Button>
-						<p className={styles.login} onClick={toggleOpenLogin}>
-							Вход
-						</p>
+						<p className={styles.login}>Вход</p>
 					</Form>
 				)}
 			</Formik>

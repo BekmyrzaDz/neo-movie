@@ -10,13 +10,16 @@ interface CreatePasswordResponse {
 	password_confirm: string
 }
 
+const token = localStorage.getItem('access_token')
+
 // Create New Password
 const changePassword = async (
 	createPasswordData: ICreatePassword
 ): Promise<CreatePasswordResponse> => {
-	const response = await axios.patch(
+	const response = await axios.put(
 		`/users/change-password/`,
-		createPasswordData
+		createPasswordData,
+		{ headers: { Authorization: `Bearer ${token}` } }
 	)
 
 	return response.data
