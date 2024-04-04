@@ -39,7 +39,15 @@ const initialValues: IRegister = {
 }
 
 const handleSubmit = (values: IRegister) => {
-	console.log(JSON.stringify(values, null, 2))
+	const { username, email, password } = values
+
+	const newValues = {
+		username,
+		email,
+		password,
+	}
+
+	console.log(JSON.stringify(newValues, null, 2))
 }
 
 const Register: FC<RegisterProps> = ({ setOpenRegister, setOpenLogin }) => {
