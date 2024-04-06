@@ -5,6 +5,7 @@ import {
 	Footer,
 	Header,
 	Pagination,
+	Spinner,
 } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Anime.module.scss'
@@ -25,7 +26,7 @@ const PageSize = 16
 
 const Anime = () => {
 	const dispatch = useAppDispatch()
-	const { movies } = useAppSelector(state => state.anime)
+	const { movies, isLoading } = useAppSelector(state => state.anime)
 	const [currentPage, setCurrentPage] = useState(1)
 
 	interface IMoviesByTypeParams {
@@ -41,6 +42,10 @@ const Anime = () => {
 	useEffect(() => {
 		dispatch(fetchMoviesByType(movieParams))
 	}, [dispatch])
+
+	if (isLoading) {
+		return <Spinner />
+	}
 
 	return (
 		<div className={styles.anime}>

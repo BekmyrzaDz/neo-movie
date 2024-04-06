@@ -9,7 +9,7 @@ import {
 	threeDots,
 	trash,
 } from '../../assets'
-import { Button, Footer, Header, Input, Modal } from '../../componets'
+import { Button, Footer, Header, Input, Modal, Spinner } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './/DetailCard.module.scss'
 import { createFavoriteById, fetchMovieById } from './redux/asyncActions'
@@ -33,7 +33,7 @@ const DetailCard = () => {
 	const dispatch = useAppDispatch()
 	const location = useLocation()
 	const id: number | null = extractFirstNumberFromString(location.pathname)
-	const { movie } = useAppSelector(state => state.detail)
+	const { movie, isLoading } = useAppSelector(state => state.detail)
 	const token = localStorage.getItem('access_token')
 	const [isAuthorization, setIsAuthorization] = useState<boolean>(
 		token ? true : false
@@ -64,6 +64,10 @@ const DetailCard = () => {
 
 	const handleOpenClick = () => {
 		setOpen(prev => !prev)
+	}
+
+	if (isLoading) {
+		return <Spinner />
 	}
 
 	return (

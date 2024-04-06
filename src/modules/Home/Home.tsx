@@ -1,5 +1,11 @@
 import { useEffect } from 'react'
-import { CategorySelections, FilterBar, Footer, Header } from '../../componets'
+import {
+	CategorySelections,
+	FilterBar,
+	Footer,
+	Header,
+	Spinner,
+} from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Home.module.scss'
 import {
@@ -23,9 +29,8 @@ interface IMovie {
 
 const Home = () => {
 	const dispatch = useAppDispatch()
-	const { movies, serials, cartoons, anime, collectionList } = useAppSelector(
-		state => state.home
-	)
+	const { movies, serials, cartoons, anime, collectionList, isLoading } =
+		useAppSelector(state => state.home)
 
 	interface IMoviesByTypeParams {
 		type: string
@@ -59,6 +64,10 @@ const Home = () => {
 		dispatch(fetchAnimeByType(animeParams))
 		dispatch(fetchCollectionList())
 	}, [dispatch])
+
+	if (isLoading) {
+		return <Spinner />
+	}
 
 	return (
 		<div className={styles.home}>

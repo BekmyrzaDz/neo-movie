@@ -5,6 +5,7 @@ import {
 	Footer,
 	Header,
 	Pagination,
+	Spinner,
 } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Collection.module.scss'
@@ -14,12 +15,18 @@ const PageSize = 16
 
 const Collection = () => {
 	const dispatch = useAppDispatch()
-	const { collectionList } = useAppSelector(state => state.collection)
+	const { collectionList, isLoading } = useAppSelector(
+		state => state.collection
+	)
 	const [currentPage, setCurrentPage] = useState(1)
 
 	useEffect(() => {
 		dispatch(fetchCollectionList())
 	}, [dispatch])
+
+	if (isLoading) {
+		return <Spinner />
+	}
 
 	return (
 		<div className={styles.collection}>
