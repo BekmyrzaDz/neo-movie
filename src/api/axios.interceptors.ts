@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import axios from './axios'
 
 const refreshToken = localStorage.getItem('refresh_token')
@@ -18,6 +19,8 @@ axios.interceptors.response.use(
 				return axios(error.config)
 			}
 		}
+
+		toast.error(error.message)
 		return error
 	}
 )
