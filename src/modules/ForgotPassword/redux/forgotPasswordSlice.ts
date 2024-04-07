@@ -7,6 +7,7 @@ interface ForgotPasswordResponse {
 
 interface ForgotPasswordState {
 	email: ForgotPasswordResponse | null
+	saveEmail: string
 	isLoading: boolean
 	isSuccess: boolean
 	isError: boolean
@@ -14,6 +15,7 @@ interface ForgotPasswordState {
 
 const initialState: ForgotPasswordState = {
 	email: null,
+	saveEmail: '',
 	isLoading: false,
 	isSuccess: false,
 	isError: false,
@@ -27,6 +29,20 @@ export const forgotPasswordSlice = createSlice({
 			state.isLoading = false
 			state.isSuccess = false
 			state.isError = false
+		},
+		resetFull: state => {
+			state.isLoading = false
+			state.isSuccess = false
+			state.isError = false
+			state.email = null
+		},
+		resetWithoutIsLoading: state => {
+			state.isSuccess = false
+			state.isError = false
+			state.email = null
+		},
+		setEmail: (state, action) => {
+			state.saveEmail = action.payload
 		},
 	},
 	extraReducers: builder => {
@@ -44,10 +60,12 @@ export const forgotPasswordSlice = createSlice({
 			)
 			.addCase(createForgotPassword.rejected, state => {
 				state.isLoading = false
+				state.isSuccess = false
 				state.isError = true
 			})
 	},
 })
 
-export const { reset } = forgotPasswordSlice.actions
+export const { reset, resetFull, resetWithoutIsLoading, setEmail } =
+	forgotPasswordSlice.actions
 export default forgotPasswordSlice.reducer

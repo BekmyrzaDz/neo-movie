@@ -1,10 +1,23 @@
 import clsx from 'clsx'
-import { FC, FormEvent, useState } from 'react'
+import { FC, FormEvent, useEffect, useState } from 'react'
 import PinInput from 'react-pin-input'
 import { Button } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import useCountdown from '../../hooks/useCountdown'
 import styles from './ConfirmCode.module.scss'
-import { createConfirmCode } from './redux/asyncActions'
+import {
+	createConfirmCode,
+	createResendConfirmCode,
+} from './redux/asyncActions'
+import {
+	resetIsDone,
+	resetIsInvalidCode,
+	resetResendCode,
+	resetWithoutIsLoading,
+	setIsDone,
+	setIsInvalidCode,
+	setResendCode,
+} from './redux/confirmCodeSlice'
 
 interface ConfirmCodeProps {
 	setOpenCreatePassword: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,8 +30,10 @@ const ConfirmCode: FC<ConfirmCodeProps> = ({
 }) => {
 	const [value, setValue] = useState<string>('')
 	const dispatch = useAppDispatch()
-	const { code } = useAppSelector(state => state.confirmCode)
-	console.log('code', code)
+	const { code, resendCode, isSuccess, isInvalidCode } = useAppSelector(
+		state => state.confirmCode
+	)
+	const { saveEmail } = useAppSelector(state => state.forgotPassword)
 
 	const toggleOpenCreatePassword = (): void => {
 		setOpenCreatePassword(prev => !prev)
@@ -34,23 +49,58 @@ const ConfirmCode: FC<ConfirmCodeProps> = ({
 
 		console.log(JSON.stringify(value, null, 2))
 
-		try {
-			dispatch(createConfirmCode({ code: value }))
-			toggleOpenCreatePassword()
-		} catch (error) {
-			console.log(error)
-		}
+		dispatch(createConfirmCode({ code: value }))
 	}
+
+	const handleResendConfirmCode = () => {
+		dispatch(resetResendCode())
+		dispatch(resetIsInvalidCode())
+		dispatch(createResendConfirmCode({ email: saveEmail }))
+	}
+
+	useEffect(() => {
+		if (code) {
+			toggleOpenCreatePassword()
+		}
+		if (!code && isSuccess) {
+			dispatch(setIsInvalidCode())
+		}
+
+		return () => {
+			dispatch(resetWithoutIsLoading())
+			dispatch(resetIsDone())
+			dispatch(resetIsInvalidCode())
+			dispatch(resetResendCode())
+		}
+	}, [code, dispatch])
+
+	const onDone = () => {
+		console.log('Timer counted down!')
+		dispatch(setResendCode())
+		dispatch(setIsDone())
+	}
+
+	const { seconds } = useCountdown(onDone, 60)
 
 	return (
 		<div className={styles.confirmCode}>
 			<h3 className={styles.title}>Код подтверждения</h3>
-			<h5 className={styles.subtitle}>
-				Мы отправили код подтверждения на почту
-			</h5>
-			<h5 className={clsx(styles.subtitle, styles.emailTitle)}>
-				asanesenbaev@gmail.com
-			</h5>
+			{isInvalidCode ? (
+				<h5 className={clsx(styles.subtitle, styles.errorSubtitle)}>
+					Введенный код неверный
+				</h5>
+			) : (
+				<>
+					<h5 className={styles.subtitle}>
+						Мы отправили код подтверждения на почту
+					</h5>
+					{saveEmail && (
+						<h5 className={clsx(styles.subtitle, styles.emailSubtitle)}>
+							{`${saveEmail}`}
+						</h5>
+					)}
+				</>
+			)}
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<PinInput
 					length={4}
@@ -65,20 +115,37 @@ const ConfirmCode: FC<ConfirmCodeProps> = ({
 						alignItems: 'center',
 						marginBottom: 40,
 					}}
-					inputStyle={{
-						width: '100px',
-						height: '61px',
-						borderTop: 'none',
-						borderRight: 'none',
-						borderLeft: 'none',
-						borderColor: '#AAAAAA',
-						borderBottomWidth: 3,
-						fontFamily: 'Montserrat',
-						fontWeight: 400,
-						fontSize: '50px',
-						lineHeight: '61px',
-						color: '#000000',
-					}}
+					inputStyle={
+						isInvalidCode
+							? {
+									width: '100px',
+									height: '61px',
+									borderTop: 'none',
+									borderRight: 'none',
+									borderLeft: 'none',
+									borderColor: '#EC3D3D',
+									borderBottomWidth: 3,
+									fontFamily: 'Montserrat',
+									fontWeight: 400,
+									fontSize: '50px',
+									lineHeight: '61px',
+									color: '#000000',
+							  }
+							: {
+									width: '100px',
+									height: '61px',
+									borderTop: 'none',
+									borderRight: 'none',
+									borderLeft: 'none',
+									borderColor: '#AAAAAA',
+									borderBottomWidth: 3,
+									fontFamily: 'Montserrat',
+									fontWeight: 400,
+									fontSize: '50px',
+									lineHeight: '61px',
+									color: '#000000',
+							  }
+					}
 					placeholder='0'
 					onChange={handlePinInputChange}
 				/>
@@ -91,9 +158,15 @@ const ConfirmCode: FC<ConfirmCodeProps> = ({
 				>
 					{value.length === 4 ? 'Подтвердить' : 'Запросить код'}
 				</Button>
-				<p className={styles.resendCode}>
-					Отправить код повторно через: 59 сек
-				</p>
+				{resendCode ? (
+					<p className={styles.resendCode} onClick={handleResendConfirmCode}>
+						Отправить код повторно
+					</p>
+				) : (
+					<p className={styles.countdown}>
+						Отправить код повторно через: {seconds} сек
+					</p>
+				)}
 			</form>
 		</div>
 	)

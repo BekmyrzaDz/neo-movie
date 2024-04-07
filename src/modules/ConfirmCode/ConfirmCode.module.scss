@@ -25,7 +25,12 @@ $main-red-color: #d72b2b;
 	color: $grey-color-4;
 }
 
-.emailTitle {
+.errorSubtitle {
+	color: $main-red-color;
+	margin-bottom: 40px;
+}
+
+.emailSubtitle {
 	margin-bottom: 40px;
 }
 
@@ -86,12 +91,21 @@ $main-red-color: #d72b2b;
 	background: $main-red-color;
 }
 
-.resendCode {
+.countdown {
 	font-family: Montserrat;
 	font-weight: 500;
 	font-size: 20px;
 	line-height: 24px;
 	color: $grey-color-4;
-	cursor: pointer;
 	text-align: center;
+}
+
+.resendCode {
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: $black-color;
+	text-align: center;
+	cursor: pointer;
 }

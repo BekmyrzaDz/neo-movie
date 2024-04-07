@@ -1,11 +1,12 @@
 import clsx from 'clsx'
 import { Form, Formik } from 'formik'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import * as Yup from 'yup'
 import { Button, MyInput } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './ForgotPassword.module.scss'
 import { createForgotPassword } from './redux/asyncActions'
+import { resetWithoutIsLoading, setEmail } from './redux/forgotPasswordSlice'
 
 interface ForgotPasswordProps {
 	setOpenForgotPassword: React.Dispatch<React.SetStateAction<boolean>>
@@ -49,14 +50,17 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({
 
 	const handleSubmit = (values: IForgotPassword) => {
 		console.log(JSON.stringify(values, null, 2))
-
-		try {
-			dispatch(createForgotPassword(values))
-			toggleOpenConfirmCode()
-		} catch (error) {
-			console.log(error)
-		}
+		dispatch(setEmail(values.email))
+		dispatch(createForgotPassword(values))
 	}
+
+	useEffect(() => {
+		email && toggleOpenConfirmCode()
+
+		return () => {
+			dispatch(resetWithoutIsLoading())
+		}
+	}, [email, dispatch])
 
 	return (
 		<div className={styles.forgotPassword}>
