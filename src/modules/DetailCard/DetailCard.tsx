@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { Auth } from '..'
 import {
 	reviewProfile,
-	saved,
+	savedActive,
 	savedOutline,
 	sendLight,
 	threeDots,
@@ -89,7 +89,7 @@ const DetailCard = () => {
 										onClick={handleFavoriteClick}
 									>
 										<img
-											src={movie?.is_favorite ? saved : savedOutline}
+											src={movie?.is_favorite ? savedActive : savedOutline}
 											alt='Saved icon'
 											className={styles.savedIcon}
 										/>
@@ -98,7 +98,7 @@ const DetailCard = () => {
 								) : (
 									<Button className={styles.button} onClick={handleOpenClick}>
 										<img
-											src={movie?.is_favorite ? saved : savedOutline}
+											src={movie?.is_favorite ? savedActive : savedOutline}
 											alt='Saved icon'
 											className={styles.savedIcon}
 										/>

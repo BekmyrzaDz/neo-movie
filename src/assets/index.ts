@@ -2,14 +2,17 @@
 import arrowLeft from './icons/arrowLeft.svg'
 import arrowRight from './icons/arrowRight.svg'
 import cross from './icons/cross.svg'
+import emptyIcon from './icons/emptyIcon.svg'
 import eye from './icons/eye.svg'
 import eyeOff from './icons/eyeOff.svg'
 import favoriteOutline from './icons/favoriteOutline.svg'
 import filterIcon from './icons/filterIcon.svg'
 import reviewProfile from './icons/reviewProfile.svg'
 import saved from './icons/saved.svg'
+import savedActive from './icons/savedActive.svg'
 import savedOutline from './icons/savedOutline.svg'
 import search from './icons/search.svg'
+import selectionsSavedIcon from './icons/selectionsSavedIcon.svg'
 import sendLight from './icons/sendLight.svg'
 import streamlineFilmSlate from './icons/streamlineFilmSlate.svg'
 import threeDots from './icons/threeDots.svg'
@@ -28,6 +31,7 @@ export {
 	cross,
 	duna,
 	ellaAndTheBlackJaguar,
+	emptyIcon,
 	eye,
 	eyeOff,
 	favoriteOutline,
@@ -36,8 +40,10 @@ export {
 	oppenheimer,
 	reviewProfile,
 	saved,
+	savedActive,
 	savedOutline,
 	search,
+	selectionsSavedIcon,
 	sendLight,
 	streamlineFilmSlate,
 	threeDots,

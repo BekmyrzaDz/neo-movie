@@ -12,6 +12,7 @@ import forgotPasswordReducer from '../modules/ForgotPassword/redux/forgotPasswor
 import homeReducer from '../modules/Home/redux/homeSlice'
 import movieReducer from '../modules/Movie/redux/movieSlice'
 import registerReducer from '../modules/Register/redux/registerSlice'
+import savedReducer from '../modules/Saved/redux/savedSlice'
 import serialReducer from '../modules/Serial/redux/serialSlice'
 
 const rootReducer = combineReducers({
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
 	forgotPassword: forgotPasswordReducer,
 	confirmCode: confirmCodeReducer,
 	createPassword: createPasswordReducer,
+	saved: savedReducer,
 })
 
 export const setupStore = () => {

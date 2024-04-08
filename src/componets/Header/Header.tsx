@@ -191,10 +191,7 @@ const Header = () => {
 								</ul>
 							</nav>
 							<div className={styles.verticalLine}></div>
-							<NavLink
-								className={clsx(styles.favorite, setActive)}
-								to='/favorites'
-							>
+							<NavLink className={clsx(styles.favorite, setActive)} to='/saved'>
 								<img
 									src={favoriteOutline}
 									alt='Favorite icon'

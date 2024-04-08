@@ -10,6 +10,7 @@ import ForgotPassword from './ForgotPassword/ForgotPassword'
 import Home from './Home/Home'
 import Movie from './Movie/Movie'
 import Register from './Register/Register'
+import Saved from './Saved/Saved'
 import Serial from './Serial/Serial'
 
 export {
@@ -25,5 +26,6 @@ export {
 	Home,
 	Movie,
 	Register,
+	Saved,
 	Serial,
 }

@@ -6,6 +6,7 @@ import FilterPage from './FilterPage/FilterPage'
 import HomePage from './HomePage/HomePage'
 import MoviePage from './MoviePage/MoviePage'
 import Page404 from './Page404/Page404'
+import SavedPage from './SavedPage/SavedPage'
 import SerialPage from './SerialPage/SerialPage'
 
 export {
@@ -17,5 +18,6 @@ export {
 	HomePage,
 	MoviePage,
 	Page404,
+	SavedPage,
 	SerialPage,
 }

@@ -48,6 +48,8 @@ const createFavoriteById = async ({
 	id: number
 }): Promise<AxiosResponse> => {
 	const response = await axios.post(`/movie/add-to-favorites/${id}/`)
+	const token = localStorage.getItem('access_token')
+	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
 	return response
 }

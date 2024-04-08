@@ -8,6 +8,7 @@ import {
 	HomePage,
 	MoviePage,
 	Page404,
+	SavedPage,
 	SerialPage,
 } from '../pages'
 
@@ -66,6 +67,14 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/filter/:id',
+		element: <DetailCardPage />,
+	},
+	{
+		path: '/saved',
+		element: <SavedPage />,
+	},
+	{
+		path: '/saved/:id',
 		element: <DetailCardPage />,
 	},
 	{
