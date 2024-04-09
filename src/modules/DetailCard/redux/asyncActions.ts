@@ -74,3 +74,20 @@ export const createFavoriteById = createAsyncThunk<
 		throw error
 	}
 })
+
+// Delete Favorite Action
+export const deleteFavoriteById = createAsyncThunk<
+	AxiosResponse,
+	IMovieParam,
+	{ rejectValue: string }
+>('detail/deleteFavoriteById', async (movieParams, thunkAPI) => {
+	try {
+		const response = await detailCardService.deleteFavoriteById(movieParams)
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})

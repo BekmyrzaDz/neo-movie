@@ -53,10 +53,23 @@ const createFavoriteById = async ({
 
 	return response
 }
+// Remove to favorites
+const deleteFavoriteById = async ({
+	id,
+}: {
+	id: number
+}): Promise<AxiosResponse> => {
+	const response = await axios.delete(`/movie/add-to-favorites/${id}/`)
+	const token = localStorage.getItem('access_token')
+	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+	return response
+}
 
 const detailCardService = {
 	getMovieById,
 	createFavoriteById,
+	deleteFavoriteById,
 }
 
 export default detailCardService

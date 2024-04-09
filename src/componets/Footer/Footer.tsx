@@ -1,13 +1,19 @@
+import clsx from 'clsx'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { Logo } from '..'
 import styles from './Footer.module.scss'
+
+interface FooterProps {
+	title?: string
+}
 
 interface INavList {
 	link: string
 	value: string
 }
 
-const Footer = () => {
+const Footer: FC<FooterProps> = ({ title }) => {
 	const navList: INavList[] = [
 		{ link: '/movies', value: 'фильмы' },
 		{ link: '/serials', value: 'сериалы' },
@@ -17,7 +23,12 @@ const Footer = () => {
 	]
 
 	return (
-		<div className={styles.footer}>
+		<div
+			className={clsx(styles.footer, {
+				[styles.additionalFooterStyles]:
+					title?.toLowerCase() === 'Сохраненные'.toLowerCase(),
+			})}
+		>
 			<div className={styles.container}>
 				<div className={styles.footerInner}>
 					<div className={styles.footerRight}>

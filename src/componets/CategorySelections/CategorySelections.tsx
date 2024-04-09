@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { FC } from 'react'
 import { Card } from '..'
-import { cross, emptyIcon, selectionsSavedIcon } from '../../assets'
+import { cross } from '../../assets'
 import { fetchMoviesByType } from '../../componets/FilterBar/redux/asyncActions'
 import {
 	removeCategory,
@@ -32,8 +32,9 @@ interface IFilteredParams {
 }
 
 interface ICategorySelections {
-	title: string
-	categorySelection: ICard[]
+	title?: string
+	categoryType?: string
+	categorySelection?: ICard[]
 	filteredParams?: IFilteredParams
 	handleCategoryClick?: () => void
 	handleGenreClick?: () => void
@@ -41,6 +42,7 @@ interface ICategorySelections {
 
 const CategorySelections: FC<ICategorySelections> = ({
 	title,
+	categoryType,
 	categorySelection,
 	filteredParams,
 }) => {
@@ -121,21 +123,16 @@ const CategorySelections: FC<ICategorySelections> = ({
 
 	return (
 		<section className={styles.categorySelectionsSection}>
-			<h2
-				className={clsx(styles.title, {
-					[styles.filterTitle]:
-						title.toLowerCase() === 'Найдено по запросу:'.toLowerCase(),
-				})}
-			>
-				{title.toLowerCase() === 'Cохраненные'.toLowerCase() && (
-					<img
-						src={selectionsSavedIcon}
-						alt='Saved icon'
-						className={styles.savedIcon}
-					/>
-				)}
-				{title}
-			</h2>
+			{title && (
+				<h2
+					className={clsx(styles.title, {
+						[styles.filterTitle]:
+							title?.toLowerCase() === 'Найдено по запросу:'.toLowerCase(),
+					})}
+				>
+					{title}
+				</h2>
+			)}
 			{(filteredParams?.category ||
 				filteredParams?.country ||
 				filteredParams?.genre ||
@@ -193,30 +190,23 @@ const CategorySelections: FC<ICategorySelections> = ({
 					)}
 				</div>
 			)}
-			{categorySelection ? (
-				<div
-					className={clsx(styles.categorySelection, {
-						[styles.categorySavedSelection]:
-							title.toLowerCase() === 'Cохраненные'.toLowerCase(),
-					})}
-				>
-					{categorySelection?.map(category => (
-						<Card
-							key={category?.id}
-							id={category?.id}
-							image={category?.image}
-							title={category?.title as string}
-							name={category?.name as string}
-							country_of_origin={category?.country_of_origin}
-						/>
-					))}
-				</div>
-			) : (
-				<div className={styles.savedEmpty}>
-					<h3 className={styles.emptyTitle}>Вы, еще ничего не сохранили</h3>
-					<img src={emptyIcon} alt='Empty icon' className={styles.emptyImg} />
-				</div>
-			)}
+			<div
+				className={clsx(styles.categorySelection, {
+					[styles.categorySavedSelection]:
+						categoryType?.toLowerCase() === 'Сохраненные'.toLowerCase(),
+				})}
+			>
+				{categorySelection?.map(category => (
+					<Card
+						key={category?.id}
+						id={category?.id}
+						image={category?.image}
+						title={category?.title as string}
+						name={category?.name as string}
+						country_of_origin={category?.country_of_origin}
+					/>
+				))}
+			</div>
 		</section>
 	)
 }

@@ -1,9 +1,13 @@
 import axios from './axios'
 
+let refresh = false
+
 axios.interceptors.response.use(
 	res => res,
 	async error => {
-		if (error.response.status === 401) {
+		if (error.response.status === 401 && !refresh) {
+			refresh = true
+
 			const refreshToken = localStorage.getItem('refresh_token')
 			const response = await axios.post('/users/login/refresh/', {
 				refresh: refreshToken,
@@ -19,6 +23,7 @@ axios.interceptors.response.use(
 				return axios(error.config)
 			}
 		}
+		refresh = false
 		return error
 	}
 )

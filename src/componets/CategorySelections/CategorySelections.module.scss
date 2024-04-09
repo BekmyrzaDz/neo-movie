@@ -3,6 +3,10 @@ $black-color: #000000;
 $grey-color-3: #dcdcdc;
 $grey-color-4: #919191;
 
+.categorySelectionsSection {
+	height: 100%;
+}
+
 .title {
 	font-family: Montserrat;
 	font-weight: 700;
@@ -67,24 +71,4 @@ $grey-color-4: #919191;
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 	gap: 40px 68px;
-}
-
-.savedEmpty {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
-
-.emptyTitle {
-	font-family: Montserrat;
-	font-weight: 600;
-	font-size: 36px;
-	line-height: 44px;
-	color: $grey-color-4;
-}
-
-.emptyImg {
-	width: 150px;
-	height: 150px;
 }

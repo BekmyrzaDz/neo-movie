@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Auth } from '..'
+import { Auth, ConfirmCode, ForgotPassword } from '..'
 import {
 	reviewProfile,
 	savedActive,
@@ -12,7 +12,11 @@ import {
 import { Button, Footer, Header, Input, Modal, Spinner } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './/DetailCard.module.scss'
-import { createFavoriteById, fetchMovieById } from './redux/asyncActions'
+import {
+	createFavoriteById,
+	deleteFavoriteById,
+	fetchMovieById,
+} from './redux/asyncActions'
 
 interface IMovieParam {
 	id: number
@@ -34,15 +38,16 @@ const DetailCard = () => {
 	const location = useLocation()
 	const id: number | null = extractFirstNumberFromString(location.pathname)
 	const { movie, isLoading } = useAppSelector(state => state.detail)
-	const token = localStorage.getItem('access_token')
-	const [isAuthorization, setIsAuthorization] = useState<boolean>(
-		token ? true : false
-	)
-	const [open, setOpen] = useState<boolean>(false)
+	const [openLogin, setOpenLogin] = useState<boolean>(false)
+	const [openForgotPassword, setOpenForgotPassword] = useState<boolean>(false)
+	const [openConfirmCode, setOpenConfirmCode] = useState<boolean>(false)
+	const [openCreatePassword, setOpenCreatePassword] = useState<boolean>(false)
+
 	const [removeToggle, setRemoveToggle] = useState<boolean>(false)
 	const [replyToggle, setReplyToggle] = useState<boolean>(false)
 	const [review, setReview] = useState('')
 	const [reply, setReply] = useState('')
+	const token = localStorage.getItem('access_token')
 
 	const movieParam: IMovieParam = {
 		id: id as number,
@@ -53,17 +58,19 @@ const DetailCard = () => {
 	}, [dispatch])
 
 	const handleFavoriteClick = () => {
-		try {
-			if (isAuthorization) {
-				dispatch(createFavoriteById(movieParam))
-			}
-		} catch (error) {
-			console.log(error)
+		if (token) {
+			dispatch(createFavoriteById(movieParam))
 		}
 	}
 
-	const handleOpenClick = () => {
-		setOpen(prev => !prev)
+	const handleDeleteFavoriteClick = () => {
+		if (token) {
+			dispatch(deleteFavoriteById(movieParam))
+		}
+	}
+
+	const handleOpenLoginClick = () => {
+		setOpenLogin(prev => !prev)
 	}
 
 	if (isLoading) {
@@ -83,22 +90,41 @@ const DetailCard = () => {
 									alt='Detail image'
 									className={styles.detailImg}
 								/>
-								{isAuthorization ? (
+								{token ? (
+									<>
+										{movie?.is_favorite ? (
+											<Button
+												className={styles.button}
+												onClick={handleFavoriteClick}
+											>
+												<img
+													src={savedActive}
+													alt='Saved icon'
+													className={styles.savedIcon}
+												/>
+												Сохранить
+											</Button>
+										) : (
+											<Button
+												className={styles.button}
+												onClick={handleDeleteFavoriteClick}
+											>
+												<img
+													src={savedOutline}
+													alt='Saved icon'
+													className={styles.savedIcon}
+												/>
+												Сохранить
+											</Button>
+										)}
+									</>
+								) : (
 									<Button
 										className={styles.button}
-										onClick={handleFavoriteClick}
+										onClick={handleOpenLoginClick}
 									>
 										<img
-											src={movie?.is_favorite ? savedActive : savedOutline}
-											alt='Saved icon'
-											className={styles.savedIcon}
-										/>
-										Сохранить
-									</Button>
-								) : (
-									<Button className={styles.button} onClick={handleOpenClick}>
-										<img
-											src={movie?.is_favorite ? savedActive : savedOutline}
+											src={savedOutline}
 											alt='Saved icon'
 											className={styles.savedIcon}
 										/>
@@ -239,9 +265,37 @@ const DetailCard = () => {
 				</div>
 			</div>
 			<Footer />
-			{open && (
-				<Modal active={open} setActive={setOpen}>
-					<Auth />
+			{openLogin && (
+				<Modal active={openLogin} setActive={setOpenLogin}>
+					<Auth
+						setOpenLogin={setOpenLogin}
+						setOpenForgotPassword={setOpenForgotPassword}
+					/>
+				</Modal>
+			)}
+			{openForgotPassword && (
+				<Modal active={openForgotPassword} setActive={setOpenForgotPassword}>
+					<ForgotPassword
+						setOpenConfirmCode={setOpenConfirmCode}
+						setOpenForgotPassword={setOpenForgotPassword}
+						setOpenLogin={setOpenLogin}
+					/>
+				</Modal>
+			)}
+			{openConfirmCode && (
+				<Modal active={openConfirmCode} setActive={setOpenConfirmCode}>
+					<ConfirmCode
+						setOpenConfirmCode={setOpenConfirmCode}
+						setOpenCreatePassword={setOpenCreatePassword}
+					/>
+				</Modal>
+			)}
+			{openCreatePassword && (
+				<Modal active={openCreatePassword} setActive={setOpenCreatePassword}>
+					<ConfirmCode
+						setOpenConfirmCode={setOpenConfirmCode}
+						setOpenCreatePassword={setOpenCreatePassword}
+					/>
 				</Modal>
 			)}
 		</div>

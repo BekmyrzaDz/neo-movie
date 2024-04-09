@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchMovieById } from './asyncActions'
+import { deleteFavoriteById, fetchMovieById } from './asyncActions'
 
 interface IMovie {
 	id: number
@@ -77,20 +77,17 @@ export const detailSlice = createSlice({
 				state.isLoading = false
 				state.isError = true
 			})
-		// .addCase(createFavoriteById.pending, state => {
-		// 	state.isLoading = true
-		// })
-		// .addCase(
-		// 	createFavoriteById.fulfilled,
-		// 	(state) => {
-		// 		state.isLoading = false
-		// 		state.isSuccess = true
-		// 	}
-		// )
-		// .addCase(createFavoriteById.rejected, state => {
-		// 	state.isLoading = false
-		// 	state.isError = true
-		// })
+			.addCase(deleteFavoriteById.pending, state => {
+				state.isLoading = true
+			})
+			.addCase(deleteFavoriteById.fulfilled, state => {
+				state.isLoading = false
+				state.isSuccess = true
+			})
+			.addCase(deleteFavoriteById.rejected, state => {
+				state.isLoading = false
+				state.isError = true
+			})
 	},
 })
 
