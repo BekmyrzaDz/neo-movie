@@ -1,0 +1,100 @@
+$black-color: #000000;
+$white-color: #ffffff;
+$grey-color-2: #dcdcdc;
+$grey-color-3: #aaaaaa;
+$grey-color-4: #919191;
+$grey-color-5: #3b3b3b;
+$main-red-color: #d72b2b;
+
+.form {
+	width: 460px;
+}
+
+.title {
+	font-family: Montserrat;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 39px;
+	color: $black-color;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.input {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	color: $black-color;
+
+	label {
+		font-family: Montserrat;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 19px;
+		color: $grey-color-4;
+	}
+
+	input {
+		background: $grey-color-2;
+		border-radius: 30px;
+		border: none;
+		padding: 10px;
+	}
+
+	:focus {
+		background: $white-color;
+		border: 1px solid $grey-color-3;
+	}
+}
+
+.activeInput {
+	input {
+		background: $white-color;
+		border: 1px solid $grey-color-3;
+	}
+
+	input[type='password'] {
+		font-size: 30px;
+	}
+}
+
+.username {
+	margin-bottom: 20px;
+}
+
+.email {
+	margin-bottom: 40px;
+}
+
+.button {
+	width: 100%;
+	border-radius: 20px;
+	border: none;
+	background: $grey-color-3;
+	padding: 8px 0;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+
+.activeButton {
+	background: $main-red-color;
+}
+
+.profileBtns {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.profileBtn {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 15px;
+	color: $grey-color-5;
+	background: none;
+	border: none;
+	text-decoration: underline;
+	cursor: pointer;
+}

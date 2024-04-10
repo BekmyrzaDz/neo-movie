@@ -2,12 +2,15 @@ import { createBrowserRouter } from 'react-router-dom'
 import {
 	AnimePage,
 	CartoonPage,
+	ChangeProfilePage,
+	ChangeProfilePasswordPage,
 	CollectionPage,
 	DetailCardPage,
 	FilterPage,
 	HomePage,
 	MoviePage,
 	Page404,
+	ProfilePage,
 	SavedPage,
 	SerialPage,
 } from '../pages'
@@ -76,6 +79,18 @@ export const router = createBrowserRouter([
 	{
 		path: '/saved/:id',
 		element: <DetailCardPage />,
+	},
+	{
+		path: '/profile',
+		element: <ProfilePage />,
+	},
+	{
+		path: '/change-profile',
+		element: <ChangeProfilePage />,
+	},
+	{
+		path: '/change-profile-password',
+		element: <ChangeProfilePasswordPage />,
 	},
 	{
 		path: '*',

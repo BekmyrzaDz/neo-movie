@@ -54,6 +54,7 @@ const Header = () => {
 	const [openConfirmCode, setOpenConfirmCode] = useState<boolean>(false)
 	const [openCreatePassword, setOpenCreatePassword] = useState<boolean>(false)
 	const [openRegister, setOpenRegister] = useState<boolean>(false)
+	const token = localStorage.getItem('access_token')
 
 	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(e.target.value)
@@ -154,24 +155,29 @@ const Header = () => {
 										</div>
 									)}
 								</div>
-								<div
-									className={clsx(styles.link, styles.login)}
-									onClick={() => setOpenLogin(prev => !prev)}
-								>
-									Войти
-								</div>
-								<div
-									className={clsx(styles.link, styles.register)}
-									onClick={() => setOpenRegister(prev => !prev)}
-								>
-									Регистрация
-								</div>
-								{/* <Link
-									className={clsx(styles.link, styles.profile)}
-									to='/profile'
-								>
-									Профиль
-								</Link> */}
+								{token ? (
+									<Link
+										className={clsx(styles.link, styles.profile)}
+										to='/profile'
+									>
+										Профиль
+									</Link>
+								) : (
+									<>
+										<div
+											className={clsx(styles.link, styles.login)}
+											onClick={() => setOpenLogin(prev => !prev)}
+										>
+											Войти
+										</div>
+										<div
+											className={clsx(styles.link, styles.register)}
+											onClick={() => setOpenRegister(prev => !prev)}
+										>
+											Регистрация
+										</div>
+									</>
+								)}
 							</div>
 						</div>
 					</div>

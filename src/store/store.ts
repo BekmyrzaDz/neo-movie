@@ -11,6 +11,9 @@ import detailReducer from '../modules/DetailCard/redux/detailCardSlice'
 import forgotPasswordReducer from '../modules/ForgotPassword/redux/forgotPasswordSlice'
 import homeReducer from '../modules/Home/redux/homeSlice'
 import movieReducer from '../modules/Movie/redux/movieSlice'
+import profileReducer from '../modules/Profile/redux/profileSlice'
+import changeProfileReducer from '../modules/ProfileChange/redux/changeProfileSlice'
+import changeProfilePasswordReducer from '../modules/ProfileChangePassword/redux/changeProfilePasswordSlice'
 import registerReducer from '../modules/Register/redux/registerSlice'
 import savedReducer from '../modules/Saved/redux/savedSlice'
 import serialReducer from '../modules/Serial/redux/serialSlice'
@@ -31,6 +34,9 @@ const rootReducer = combineReducers({
 	confirmCode: confirmCodeReducer,
 	createPassword: createPasswordReducer,
 	saved: savedReducer,
+	profile: profileReducer,
+	changeProfile: changeProfileReducer,
+	changeProfilePassword: changeProfilePasswordReducer,
 })
 
 export const setupStore = () => {
