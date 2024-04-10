@@ -32,6 +32,9 @@ export const changeProfileSlice = createSlice({
 			state.isSuccess = false
 			state.isError = false
 		},
+		setChangeProfile: (state, action) => {
+			state.user = action.payload
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -68,5 +71,5 @@ export const changeProfileSlice = createSlice({
 	},
 })
 
-export const { reset } = changeProfileSlice.actions
+export const { reset, setChangeProfile } = changeProfileSlice.actions
 export default changeProfileSlice.reducer

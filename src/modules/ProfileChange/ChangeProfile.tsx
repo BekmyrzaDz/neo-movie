@@ -7,6 +7,7 @@ import { Button, MyInput, Spinner } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './ChangeProfile.module.scss'
 import { changeUser, fetchUser } from './redux/asyncActions'
+import { setChangeProfile } from './redux/changeProfileSlice'
 
 interface IChangeProfile {
 	username: string
@@ -37,6 +38,8 @@ const ChangeProfile = () => {
 
 	const handleSubmit = (values: IChangeProfile) => {
 		console.log(JSON.stringify(values, null, 2))
+
+		dispatch(setChangeProfile(values))
 		dispatch(changeUser(values))
 	}
 
