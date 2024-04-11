@@ -69,8 +69,8 @@ const Saved = () => {
 			<div className={styles.titleContainer}>
 				<h2
 					className={clsx(styles.title, {
-						[styles.emptyTitleAddition]: !saved?.results,
-						[styles.emptyTitleAddition]: !token,
+						[styles.emptyTitleAddition]: token && saved?.results?.length === 0,
+						[styles.titleIfUnauthorized]: !token,
 					})}
 				>
 					<img
@@ -83,20 +83,14 @@ const Saved = () => {
 			</div>
 			<div
 				className={clsx(styles.container, {
-					[styles.emptySavedContainer]: !saved?.results,
-					[styles.emptySavedContainer]: !token,
+					[styles.containerIfNoResults]: token && saved?.results?.length === 0,
+					[styles.containerIfUnauthorized]: !token,
 				})}
 			>
 				<div className={styles.savedInner}>
 					{token ? (
 						<>
-							{saved?.results && (
-								<CategorySelections
-									categoryType='Сохраненные'
-									categorySelection={saved?.results as ICard[]}
-								/>
-							)}
-							{!saved?.results && (
+							{saved?.results?.length === 0 ? (
 								<div className={styles.savedEmpty}>
 									<h3 className={styles.emptyTitle}>
 										Вы, еще ничего не сохранили
@@ -107,6 +101,11 @@ const Saved = () => {
 										className={styles.emptyImg}
 									/>
 								</div>
+							) : (
+								<CategorySelections
+									categoryType='Сохраненные'
+									categorySelection={saved?.results as ICard[]}
+								/>
 							)}
 						</>
 					) : (

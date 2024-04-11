@@ -7,7 +7,14 @@ $grey-color-4: #919191;
 	margin: 0 auto;
 }
 
-.emptySavedContainer {
+.containerIfNoResults {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.containerIfUnauthorized {
 	flex-grow: 1;
 	display: flex;
 	justify-content: center;
@@ -41,6 +48,10 @@ $grey-color-4: #919191;
 }
 
 .emptyTitleAddition {
+	margin-bottom: 0;
+}
+
+.titleIfUnauthorized {
 	margin-bottom: 0;
 }
 
