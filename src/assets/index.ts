@@ -5,6 +5,7 @@ import cross from './icons/cross.svg'
 import emptyIcon from './icons/emptyIcon.svg'
 import eye from './icons/eye.svg'
 import eyeOff from './icons/eyeOff.svg'
+import favorite from './icons/favorite.svg'
 import favoriteOutline from './icons/favoriteOutline.svg'
 import filterIcon from './icons/filterIcon.svg'
 import reviewProfile from './icons/reviewProfile.svg'
@@ -34,6 +35,7 @@ export {
 	emptyIcon,
 	eye,
 	eyeOff,
+	favorite,
 	favoriteOutline,
 	filterIcon,
 	notFoundImg,

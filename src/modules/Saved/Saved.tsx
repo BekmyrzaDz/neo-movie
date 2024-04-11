@@ -32,6 +32,7 @@ interface ICard {
 	collection?: {
 		name?: string
 	}
+	is_favorite?: boolean
 }
 
 const Saved = () => {

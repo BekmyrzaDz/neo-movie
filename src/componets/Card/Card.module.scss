@@ -1,5 +1,18 @@
 $black-color: #000000;
 
+.wrapper {
+	position: relative;
+}
+
+.favorite {
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 2px;
+}
+
 .card {
 	cursor: pointer;
 	text-decoration: none;

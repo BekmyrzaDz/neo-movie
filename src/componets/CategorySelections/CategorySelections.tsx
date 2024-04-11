@@ -22,6 +22,7 @@ interface ICard {
 	collection?: {
 		name?: string
 	}
+	is_favorite?: boolean
 }
 
 interface IFilteredParams {
@@ -198,6 +199,8 @@ const CategorySelections: FC<ICategorySelections> = ({
 			>
 				{categorySelection?.map(category => (
 					<Card
+						categoryType={categoryType}
+						is_favorite={category?.is_favorite}
 						key={category?.id}
 						id={category?.id}
 						image={category?.image}

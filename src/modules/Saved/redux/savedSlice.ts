@@ -10,6 +10,7 @@ interface ISaved {
 	collection?: {
 		name?: string
 	}
+	is_favorite?: boolean
 }
 
 interface ISavedListData {
@@ -43,6 +44,16 @@ export const savedSlice = createSlice({
 			state.isSuccess = false
 			state.isError = false
 		},
+		removeSavedById: (state, action) => {
+			if (state.saved) {
+				state.saved = {
+					...state.saved,
+					results: [
+						...state.saved.results.filter(movie => movie.id !== action.payload),
+					],
+				}
+			}
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -64,5 +75,5 @@ export const savedSlice = createSlice({
 	},
 })
 
-export const { reset } = savedSlice.actions
+export const { reset, removeSavedById } = savedSlice.actions
 export default savedSlice.reducer

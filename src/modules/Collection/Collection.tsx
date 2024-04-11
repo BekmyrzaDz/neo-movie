@@ -47,7 +47,7 @@ const Collection = () => {
 					<Pagination
 						className={styles.paginationBar}
 						currentPage={currentPage}
-						totalCount={collectionList.length || 0}
+						totalCount={collectionList?.length || 0}
 						pageSize={PageSize}
 						onPageChange={page => setCurrentPage(page)}
 					/>
