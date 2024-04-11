@@ -47,7 +47,6 @@ const DetailCard = () => {
 	const [replyToggle, setReplyToggle] = useState<boolean>(false)
 	const [review, setReview] = useState('')
 	const [reply, setReply] = useState('')
-	const token = localStorage.getItem('access_token')
 
 	const movieParam: IMovieParam = {
 		id: id as number,
@@ -57,20 +56,23 @@ const DetailCard = () => {
 		dispatch(fetchMovieById(movieParam))
 	}, [dispatch])
 
+	const token = localStorage.getItem('access_token')
+	const [isFavorite, setFavorite] = useState(false)
+
+	useEffect(() => {
+		setFavorite(movie?.is_favorite as boolean)
+	}, [movie?.is_favorite])
+
 	const handleFavoriteClick = () => {
-		if (token) {
-			dispatch(createFavoriteById(movieParam))
-		}
-	}
-
-	const handleDeleteFavoriteClick = () => {
-		if (token) {
+		if (token && isFavorite) {
+			setFavorite(prev => !prev)
 			dispatch(deleteFavoriteById(movieParam))
+		} else if (token && !isFavorite) {
+			setFavorite(prev => !prev)
+			dispatch(createFavoriteById(movieParam))
+		} else {
+			setOpenLogin(prev => !prev)
 		}
-	}
-
-	const handleOpenLoginClick = () => {
-		setOpenLogin(prev => !prev)
 	}
 
 	if (isLoading) {
@@ -90,47 +92,18 @@ const DetailCard = () => {
 									alt='Detail image'
 									className={styles.detailImg}
 								/>
-								{token ? (
-									<>
-										{movie?.is_favorite ? (
-											<Button
-												className={styles.button}
-												onClick={handleFavoriteClick}
-											>
-												<img
-													src={savedActive}
-													alt='Saved icon'
-													className={styles.savedIcon}
-												/>
-												Сохранить
-											</Button>
-										) : (
-											<Button
-												className={styles.button}
-												onClick={handleDeleteFavoriteClick}
-											>
-												<img
-													src={savedOutline}
-													alt='Saved icon'
-													className={styles.savedIcon}
-												/>
-												Сохранить
-											</Button>
-										)}
-									</>
-								) : (
-									<Button
-										className={styles.button}
-										onClick={handleOpenLoginClick}
-									>
-										<img
-											src={savedOutline}
-											alt='Saved icon'
-											className={styles.savedIcon}
-										/>
-										Сохранить
-									</Button>
-								)}
+								<Button className={styles.button} onClick={handleFavoriteClick}>
+									<img
+										src={isFavorite && isFavorite ? savedActive : savedOutline}
+										alt={
+											isFavorite && isFavorite
+												? 'Saved active icon'
+												: 'Saved outline icon'
+										}
+										className={styles.savedIcon}
+									/>
+									Сохранить
+								</Button>
 							</div>
 							<section className={styles.detailContentTopRight}>
 								<ul className={styles.list}>

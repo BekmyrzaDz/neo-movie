@@ -2,6 +2,8 @@ import axios from './axios'
 
 let refresh = false
 
+const token = localStorage.getItem('access_token')
+
 axios.interceptors.response.use(
 	res => res,
 	async error => {
@@ -14,11 +16,9 @@ axios.interceptors.response.use(
 			})
 
 			if (response.status === 200) {
-				axios.defaults.headers.common[
-					'Authorization'
-				] = `Bearer ${response.data['access']}`
-
 				localStorage.setItem('access_token', response.data['access'])
+
+				axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
 				return axios(error.config)
 			}

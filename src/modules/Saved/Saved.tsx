@@ -90,12 +90,13 @@ const Saved = () => {
 				<div className={styles.savedInner}>
 					{token ? (
 						<>
-							{saved?.results ? (
+							{saved?.results && (
 								<CategorySelections
 									categoryType='Сохраненные'
 									categorySelection={saved?.results as ICard[]}
 								/>
-							) : (
+							)}
+							{!saved?.results && (
 								<div className={styles.savedEmpty}>
 									<h3 className={styles.emptyTitle}>
 										Вы, еще ничего не сохранили

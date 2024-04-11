@@ -34,9 +34,13 @@ interface Reviews {
 	created_at: string
 }
 
+const token = localStorage.getItem('access_token')
+
 // Get Movie By Id
 const getMovieById = async ({ id }: { id: number }): Promise<IMovie> => {
-	const response = await axios.get(`/movie/detail/${id}/`)
+	const response = await axios.get(`/movie/detail/${id}/`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
 
 	return response.data
 }
@@ -47,9 +51,9 @@ const createFavoriteById = async ({
 }: {
 	id: number
 }): Promise<AxiosResponse> => {
-	const response = await axios.post(`/movie/add-to-favorites/${id}/`)
-	const token = localStorage.getItem('access_token')
-	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+	const response = await axios.post(`/movie/add-to-favorites/${id}/`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
 
 	return response
 }
@@ -59,9 +63,9 @@ const deleteFavoriteById = async ({
 }: {
 	id: number
 }): Promise<AxiosResponse> => {
-	const response = await axios.delete(`/movie/add-to-favorites/${id}/`)
-	const token = localStorage.getItem('access_token')
-	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+	const response = await axios.delete(`/movie/remove-from-favorites/${id}/`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
 
 	return response
 }
