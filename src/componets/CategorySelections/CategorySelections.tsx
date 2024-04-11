@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { FC } from 'react'
+import { Link } from 'react-router-dom'
 import { Card } from '..'
 import { cross } from '../../assets'
 import { fetchMoviesByType } from '../../componets/FilterBar/redux/asyncActions'
@@ -122,17 +123,41 @@ const CategorySelections: FC<ICategorySelections> = ({
 		}
 	}
 
+	interface INavList {
+		link: string
+		value: string
+	}
+
+	const navList: INavList[] = [
+		{ link: '/', value: 'главное' },
+		{ link: '/movies', value: 'фильмы' },
+		{ link: '/serials', value: 'сериалы' },
+		{ link: '/cartoons', value: 'мультфильмы' },
+		{ link: '/anime', value: 'аниме' },
+		{ link: '/collections', value: 'подборки' },
+	]
+
+	const renderLink = (title: string, list: INavList[]): string => {
+		const result = list.find(item => {
+			if (item.value.toLowerCase() === title.toLowerCase()) return item.link
+		})
+
+		return result?.link as string
+	}
+
 	return (
 		<section className={styles.categorySelectionsSection}>
 			{title && (
-				<h2
-					className={clsx(styles.title, {
-						[styles.filterTitle]:
-							title?.toLowerCase() === 'Найдено по запросу:'.toLowerCase(),
-					})}
-				>
-					{title}
-				</h2>
+				<Link className={styles.link} to={renderLink(title, navList)}>
+					<h2
+						className={clsx(styles.title, {
+							[styles.filterTitle]:
+								title?.toLowerCase() === 'Найдено по запросу:'.toLowerCase(),
+						})}
+					>
+						{title}
+					</h2>
+				</Link>
 			)}
 			{(filteredParams?.category ||
 				filteredParams?.country ||
