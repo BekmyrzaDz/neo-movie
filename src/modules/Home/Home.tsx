@@ -103,6 +103,7 @@ const Home = () => {
 							<div>
 								<CategorySelections
 									title='Подборки'
+									categoryType='Подборки'
 									categorySelection={collectionList?.slice(0, 4)}
 								/>
 							</div>

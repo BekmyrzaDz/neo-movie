@@ -38,6 +38,7 @@ const Collection = () => {
 							<div className={styles.category}>
 								<CategorySelections
 									title='Подборки'
+									categoryType='Подборки'
 									categorySelection={collectionList}
 								/>
 							</div>

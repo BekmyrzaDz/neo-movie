@@ -59,15 +59,27 @@ const Card: FC<ICard> = ({
 					onClick={handleFavoriteClick}
 				/>
 			)}
-			<Link className={styles.card} to={`${path}/${id}`}>
-				<img src={image} alt='Card image' className={styles.cardImg} />
-				<div className={styles.cardBottom}>
-					<h4 className={styles.cardTitle}>{title ? title : name}</h4>
-					{country_of_origin && (
-						<h5 className={styles.cardSubtitle}>{country_of_origin}</h5>
-					)}
+			{categoryType?.toLowerCase() === 'Подборки'.toLowerCase() ? (
+				<div className={styles.card}>
+					<img src={image} alt='Card image' className={styles.cardImg} />
+					<div className={styles.cardBottom}>
+						<h4 className={styles.cardTitle}>{title ? title : name}</h4>
+						{country_of_origin && (
+							<h5 className={styles.cardSubtitle}>{country_of_origin}</h5>
+						)}
+					</div>
 				</div>
-			</Link>
+			) : (
+				<Link className={styles.card} to={`${path}/${id}`}>
+					<img src={image} alt='Card image' className={styles.cardImg} />
+					<div className={styles.cardBottom}>
+						<h4 className={styles.cardTitle}>{title ? title : name}</h4>
+						{country_of_origin && (
+							<h5 className={styles.cardSubtitle}>{country_of_origin}</h5>
+						)}
+					</div>
+				</Link>
+			)}
 		</div>
 	)
 }

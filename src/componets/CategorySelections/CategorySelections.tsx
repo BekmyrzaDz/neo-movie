@@ -148,16 +148,16 @@ const CategorySelections: FC<ICategorySelections> = ({
 	return (
 		<section className={styles.categorySelectionsSection}>
 			{title && (
-				<Link className={styles.link} to={renderLink(title, navList)}>
-					<h2
-						className={clsx(styles.title, {
-							[styles.filterTitle]:
-								title?.toLowerCase() === 'Найдено по запросу:'.toLowerCase(),
-						})}
-					>
+				<h2
+					className={clsx(styles.title, {
+						[styles.filterTitle]:
+							title?.toLowerCase() === 'Найдено по запросу:'.toLowerCase(),
+					})}
+				>
+					<Link className={styles.link} to={renderLink(title, navList)}>
 						{title}
-					</h2>
-				</Link>
+					</Link>
+				</h2>
 			)}
 			{(filteredParams?.category ||
 				filteredParams?.country ||
