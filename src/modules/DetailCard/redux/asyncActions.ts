@@ -31,13 +31,35 @@ interface Genre {
 interface Reviews {
 	id: number
 	movie: number
-	user: number
+	user: User
 	text: string
 	parent_review: number
 	created_at: string
 }
 
+interface User {
+	id: number
+	username: string
+}
+
+interface IReview {
+	movie: number
+	text: string
+	parent_review?: number
+}
+
+interface ReviewResponse {
+	movie: number
+	user: User
+	text: string
+	parent_review?: number
+}
+
 interface IMovieParam {
+	id: number
+}
+
+interface IReviewParam {
 	id: number
 }
 
@@ -83,6 +105,40 @@ export const deleteFavoriteById = createAsyncThunk<
 >('detail/deleteFavoriteById', async (movieParams, thunkAPI) => {
 	try {
 		const response = await detailCardService.deleteFavoriteById(movieParams)
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})
+
+// Create Review Action
+export const createReview = createAsyncThunk<
+	ReviewResponse,
+	IReview,
+	{ rejectValue: string }
+>('detail/createReview', async (reviewData, thunkAPI) => {
+	try {
+		const response = await detailCardService.createReview(reviewData)
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})
+
+// Delete Review Action
+export const deleteReviewById = createAsyncThunk<
+	AxiosResponse,
+	IReviewParam,
+	{ rejectValue: string }
+>('detail/deleteReviewById', async (reviewParam, thunkAPI) => {
+	try {
+		const response = await detailCardService.deleteReview(reviewParam)
 		return response
 	} catch (error: unknown) {
 		if (error instanceof AxiosError) {

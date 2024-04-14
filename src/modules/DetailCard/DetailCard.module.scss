@@ -251,6 +251,11 @@ $grey-color-4: #91919140;
 	justify-content: space-between;
 }
 
+.reviewReply {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
 .replyInput {
 	padding: 0;
 	border-radius: initial;

@@ -7,4 +7,6 @@ export interface InputProps
 	> {
 	icon?: string
 	name: string
+	sendIcon?: string
+	handleSubmit?: () => void
 }

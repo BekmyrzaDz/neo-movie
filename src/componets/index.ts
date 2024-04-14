@@ -11,6 +11,8 @@ import Logo from './Logo/Logo'
 import Modal from './Modal/Modal'
 import MyInput from './MyInput/MyInput'
 import Pagination from './Pagination/Pagination'
+import Review from './Review/Review'
+import ReviewProfile from './ReviewProfile/ReviewProfile'
 import Spinner from './Spinner/Spinner'
 
 export {
@@ -27,5 +29,7 @@ export {
 	Modal,
 	MyInput,
 	Pagination,
+	Review,
+	ReviewProfile,
 	Spinner,
 }

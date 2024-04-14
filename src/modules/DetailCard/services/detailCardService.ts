@@ -28,10 +28,28 @@ interface Genre {
 interface Reviews {
 	id: number
 	movie: number
-	user: number
+	user: User
 	text: string
 	parent_review: number
 	created_at: string
+}
+
+interface User {
+	id: number
+	username: string
+}
+
+interface IReview {
+	movie: number
+	text: string
+	parent_review?: number
+}
+
+interface ReviewResponse {
+	movie: number
+	user: User
+	text: string
+	parent_review?: number
 }
 
 const token = localStorage.getItem('access_token')
@@ -57,6 +75,7 @@ const createFavoriteById = async ({
 
 	return response
 }
+
 // Remove to favorites
 const deleteFavoriteById = async ({
 	id,
@@ -70,10 +89,30 @@ const deleteFavoriteById = async ({
 	return response
 }
 
+// Create review
+const createReview = async (reviewData: IReview): Promise<ReviewResponse> => {
+	const response = await axios.post(`/movie/create-review/`, reviewData, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
+
+	return response.data
+}
+
+// Delete review
+const deleteReview = async ({ id }: { id: number }): Promise<AxiosResponse> => {
+	const response = await axios.delete(`/movie/review-delete/${id}/`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
+
+	return response.data
+}
+
 const detailCardService = {
 	getMovieById,
 	createFavoriteById,
 	deleteFavoriteById,
+	createReview,
+	deleteReview,
 }
 
 export default detailCardService

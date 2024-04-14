@@ -1,6 +1,7 @@
 $black-color: #000;
 $white-color: #ffffff;
 $grey-color: #919191;
+$grey-color-3: #aaaaaa;
 
 .wrapper {
 	position: relative;
@@ -39,4 +40,18 @@ $grey-color: #919191;
 		font-weight: 400;
 		font-size: 12px;
 	}
+}
+
+.sendInput {
+	&:focus {
+		// background: $white-color;
+		// border: 1px solid $grey-color-3;
+	}
+}
+
+.sendIcon {
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	margin-right: 12px;
 }

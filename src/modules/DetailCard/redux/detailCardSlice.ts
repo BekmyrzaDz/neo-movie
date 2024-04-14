@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
 	createFavoriteById,
+	createReview,
 	deleteFavoriteById,
+	deleteReviewById,
 	fetchMovieById,
 } from './asyncActions'
 
@@ -34,14 +36,27 @@ interface Genre {
 interface Reviews {
 	id: number
 	movie: number
-	user: number
+	user: User
 	text: string
 	parent_review: number
 	created_at: string
 }
 
+interface User {
+	id: number
+	username: string
+}
+
+interface ReviewResponse {
+	movie: number
+	user: User
+	text: string
+	parent_review?: number
+}
+
 interface IMovieState {
 	movie: IMovie | null
+	review: ReviewResponse | null
 	isLoading: boolean
 	isSuccess: boolean
 	isError: boolean
@@ -49,6 +64,7 @@ interface IMovieState {
 
 const initialState: IMovieState = {
 	movie: null,
+	review: null,
 	isLoading: false,
 	isSuccess: false,
 	isError: false,
@@ -100,6 +116,32 @@ export const detailSlice = createSlice({
 				state.isSuccess = true
 			})
 			.addCase(createFavoriteById.rejected, state => {
+				state.isLoading = false
+				state.isError = true
+			})
+			.addCase(createReview.pending, state => {
+				state.isLoading = true
+			})
+			.addCase(
+				createReview.fulfilled,
+				(state, action: PayloadAction<ReviewResponse>) => {
+					state.isLoading = false
+					state.isSuccess = true
+					state.review = action.payload
+				}
+			)
+			.addCase(createReview.rejected, state => {
+				state.isLoading = false
+				state.isError = true
+			})
+			.addCase(deleteReviewById.pending, state => {
+				state.isLoading = true
+			})
+			.addCase(deleteReviewById.fulfilled, state => {
+				state.isLoading = false
+				state.isSuccess = true
+			})
+			.addCase(deleteReviewById.rejected, state => {
 				state.isLoading = false
 				state.isError = true
 			})
