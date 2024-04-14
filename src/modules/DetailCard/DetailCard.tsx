@@ -199,6 +199,7 @@ const DetailCard = () => {
 											username={review.user.username}
 											text={review.text}
 											created_at={review.created_at}
+											parent_review={review.parent_review}
 											reviewReply={
 												<div className={styles.reviewReply}>
 													{movie?.reviews

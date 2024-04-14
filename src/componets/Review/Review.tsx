@@ -3,6 +3,7 @@ import { sendLight, threeDots, trash } from '../../assets'
 import { useAppDispatch } from '../../hooks/redux'
 import { useOutsideAlerter } from '../../hooks/useOutsideAlerter'
 import {
+	createReview,
 	deleteReviewById,
 	fetchMovieById,
 } from '../../modules/DetailCard/redux/asyncActions'
@@ -19,6 +20,12 @@ interface Review {
 	text: string
 	parent_review?: number
 	reviewReply?: ReactNode
+}
+
+interface Reply {
+	movie: number
+	text: string
+	parent_review?: number
 }
 
 interface IMovieParam {
@@ -57,6 +64,21 @@ const Review: FC<Review> = ({
 	const outsideAlerterRef = useOutsideAlerter(() => {
 		setReplyToggle(prev => !prev)
 	})
+
+	const handleReplySubmit = () => {
+		const reviewData: Reply = {
+			movie: movie,
+			text: reply,
+			parent_review: id,
+		}
+
+		const movieParam: IMovieParam = {
+			id: movie,
+		}
+
+		dispatch(createReview(reviewData))
+		dispatch(fetchMovieById(movieParam))
+	}
 
 	return (
 		<div className={styles.review}>
@@ -103,6 +125,7 @@ const Review: FC<Review> = ({
 									src={sendLight}
 									alt='Send icon'
 									className={styles.sendLight}
+									onClick={handleReplySubmit}
 								/>
 							)}
 						</div>
