@@ -13,14 +13,14 @@ interface IMovie {
 
 interface IMovieListData {
 	page: number
-	count1: number
+	count: number
 	next: string
 	previous: string | null
 	results: IMovie[]
 }
 
-// Get Movies By Type
-const getMoviesByType = async ({
+// Get Movies By Type Did Mount
+const getMoviesByTypeDidMount = async ({
 	type,
 	limit,
 }: {
@@ -34,8 +34,27 @@ const getMoviesByType = async ({
 
 	return response.data
 }
+
+// Get Movies By Type
+const getMoviesByType = async ({
+	type,
+	limit,
+	page,
+}: {
+	type: string
+	limit: number
+	page?: number
+}): Promise<IMovieListData> => {
+	const response = await axios.get(
+		`/movie/list/?limit=${limit}&media_type_name=${type}&page=${page}`
+	)
+	console.log(response)
+
+	return response.data
+}
 const serialService = {
 	getMoviesByType,
+	getMoviesByTypeDidMount,
 }
 
 export default serialService

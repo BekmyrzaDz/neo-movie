@@ -30,7 +30,10 @@ const Pagination: FC<IPaginationProps> = props => {
 		pageSize,
 	})
 
-	if (currentPage === 0 || paginationRange?.length < 2) {
+	if (
+		currentPage === 0 ||
+		(paginationRange ? paginationRange?.length : 0) < 2
+	) {
 		return null
 	}
 
@@ -42,7 +45,8 @@ const Pagination: FC<IPaginationProps> = props => {
 		onPageChange(currentPage - 1)
 	}
 
-	const lastPage: number = paginationRange[paginationRange?.length - 1]
+	const lastPage =
+		paginationRange[(paginationRange ? paginationRange.length : 0) - 1]
 
 	return (
 		<ul

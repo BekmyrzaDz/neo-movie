@@ -9,7 +9,10 @@ import {
 } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Serial.module.scss'
-import { fetchMoviesByType } from './redux/asyncActions'
+import {
+	fetchMoviesByType,
+	fetchMoviesByTypeDidMount,
+} from './redux/asyncActions'
 
 interface IMovie {
 	id: number
@@ -28,16 +31,32 @@ const Serial = () => {
 	const dispatch = useAppDispatch()
 	const { movies, isLoading } = useAppSelector(state => state.serial)
 	const [currentPage, setCurrentPage] = useState(1)
+	const [totalCount, setTotalCount] = useState(movies?.count)
+
+	useEffect(() => {
+		setTotalCount(movies?.count)
+	}, [movies?.count])
 
 	interface IMoviesByTypeParams {
 		type: string
 		limit: number
+		page?: number
+	}
+
+	const movieDidMountParams: IMoviesByTypeParams = {
+		type: 'сериалы',
+		limit: 16,
 	}
 
 	const movieParams: IMoviesByTypeParams = {
 		type: 'сериалы',
 		limit: 16,
+		page: currentPage,
 	}
+
+	useEffect(() => {
+		dispatch(fetchMoviesByTypeDidMount(movieDidMountParams))
+	}, [dispatch])
 
 	useEffect(() => {
 		dispatch(fetchMoviesByType(movieParams))
@@ -66,7 +85,7 @@ const Serial = () => {
 					<Pagination
 						className={styles.paginationBar}
 						currentPage={currentPage}
-						totalCount={movies?.results?.length || 0}
+						totalCount={totalCount as number}
 						pageSize={PageSize}
 						onPageChange={page => setCurrentPage(page)}
 					/>
