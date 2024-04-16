@@ -9,7 +9,10 @@ import {
 } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Anime.module.scss'
-import { fetchMoviesByType } from './redux/asyncActions'
+import {
+	fetchMoviesByType,
+	fetchMoviesByTypeDidMount,
+} from './redux/asyncActions'
 
 interface IMovie {
 	id: number
@@ -28,20 +31,36 @@ const Anime = () => {
 	const dispatch = useAppDispatch()
 	const { movies, isLoading } = useAppSelector(state => state.anime)
 	const [currentPage, setCurrentPage] = useState(1)
+	const [totalCount, setTotalCount] = useState(movies?.count)
+
+	useEffect(() => {
+		setTotalCount(movies?.count)
+	}, [movies?.count])
 
 	interface IMoviesByTypeParams {
 		type: string
 		limit: number
+		page?: number
+	}
+
+	const movieDidMountParams: IMoviesByTypeParams = {
+		type: 'аниме',
+		limit: 16,
 	}
 
 	const movieParams: IMoviesByTypeParams = {
 		type: 'аниме',
 		limit: 16,
+		page: currentPage,
 	}
 
 	useEffect(() => {
-		dispatch(fetchMoviesByType(movieParams))
+		dispatch(fetchMoviesByTypeDidMount(movieDidMountParams))
 	}, [dispatch])
+
+	useEffect(() => {
+		dispatch(fetchMoviesByType(movieParams))
+	}, [dispatch, currentPage])
 
 	if (isLoading) {
 		return <Spinner />
@@ -66,7 +85,7 @@ const Anime = () => {
 					<Pagination
 						className={styles.paginationBar}
 						currentPage={currentPage}
-						totalCount={movies?.results?.length || 0}
+						totalCount={totalCount as number}
 						pageSize={PageSize}
 						onPageChange={page => setCurrentPage(page)}
 					/>

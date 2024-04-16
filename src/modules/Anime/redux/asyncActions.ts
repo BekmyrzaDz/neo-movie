@@ -15,7 +15,7 @@ interface IMovie {
 
 interface IMovieListData {
 	page: number
-	count1: number
+	count: number
 	next: string
 	previous: string | null
 	results: IMovie[]
@@ -24,7 +24,25 @@ interface IMovieListData {
 interface IMovieParams {
 	type: string
 	limit: number
+	page?: number
 }
+
+// Fetch Movies by type did mount Action
+export const fetchMoviesByTypeDidMount = createAsyncThunk<
+	IMovieListData,
+	IMovieParams,
+	{ rejectValue: string }
+>('movie/fetchMoviesDidMountByType', async (movieParams, thunkAPI) => {
+	try {
+		const response = await animeService.getMoviesByTypeDidMount(movieParams)
+		return response
+	} catch (error: unknown) {
+		if (error instanceof AxiosError) {
+			return thunkAPI.rejectWithValue(error.message)
+		}
+		throw error
+	}
+})
 
 // Fetch Movies by type Action
 export const fetchMoviesByType = createAsyncThunk<
