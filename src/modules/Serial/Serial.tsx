@@ -60,7 +60,7 @@ const Serial = () => {
 
 	useEffect(() => {
 		dispatch(fetchMoviesByType(movieParams))
-	}, [dispatch])
+	}, [dispatch, currentPage])
 
 	if (isLoading) {
 		return <Spinner />
