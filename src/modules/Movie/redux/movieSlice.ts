@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchMoviesByType, fetchMoviesList } from './asyncActions'
+import {
+	fetchMoviesByType,
+	fetchMoviesByTypeDidMount,
+	fetchMoviesList,
+} from './asyncActions'
 
 interface IMovie {
 	id: number
@@ -14,7 +18,7 @@ interface IMovie {
 
 interface IMovieListData {
 	page: number
-	count1: number
+	count: number
 	next: string
 	previous: string | null
 	results: IMovie[]
@@ -75,6 +79,21 @@ export const movieSlice = createSlice({
 				}
 			)
 			.addCase(fetchMoviesByType.rejected, state => {
+				state.isLoading = false
+				state.isError = true
+			})
+			.addCase(fetchMoviesByTypeDidMount.pending, state => {
+				state.isLoading = true
+			})
+			.addCase(
+				fetchMoviesByTypeDidMount.fulfilled,
+				(state, action: PayloadAction<IMovieListData>) => {
+					state.isLoading = false
+					state.isSuccess = true
+					state.movies = action.payload
+				}
+			)
+			.addCase(fetchMoviesByTypeDidMount.rejected, state => {
 				state.isLoading = false
 				state.isError = true
 			})

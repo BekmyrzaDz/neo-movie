@@ -9,7 +9,10 @@ import {
 } from '../../componets'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './Movie.module.scss'
-import { fetchMoviesByType } from './redux/asyncActions'
+import {
+	fetchMoviesByType,
+	fetchMoviesByTypeDidMount,
+} from './redux/asyncActions'
 
 interface IMovie {
 	id: number
@@ -28,26 +31,36 @@ const Movie = () => {
 	const dispatch = useAppDispatch()
 	const { movies, isLoading } = useAppSelector(state => state.movie)
 	const [currentPage, setCurrentPage] = useState(1)
+	const [totalCount, setTotalCount] = useState(movies?.count)
 
-	// const currentTableData = useMemo(() => {
-	// 	const firstPageIndex = (currentPage - 1) * PageSize
-	// 	const lastPageIndex = firstPageIndex + PageSize
-	// 	return movies?.results?.slice(firstPageIndex, lastPageIndex)
-	// }, [currentPage])
+	useEffect(() => {
+		setTotalCount(movies?.count)
+	}, [movies?.count])
 
 	interface IMoviesByTypeParams {
 		type: string
 		limit: number
+		page?: number
+	}
+
+	const movieDidMountParams: IMoviesByTypeParams = {
+		type: 'фильмы',
+		limit: 16,
 	}
 
 	const movieParams: IMoviesByTypeParams = {
 		type: 'фильмы',
 		limit: 16,
+		page: currentPage,
 	}
 
 	useEffect(() => {
-		dispatch(fetchMoviesByType(movieParams))
+		dispatch(fetchMoviesByTypeDidMount(movieDidMountParams))
 	}, [dispatch])
+
+	useEffect(() => {
+		dispatch(fetchMoviesByType(movieParams))
+	}, [dispatch, currentPage])
 
 	if (isLoading) {
 		return <Spinner />
@@ -72,7 +85,7 @@ const Movie = () => {
 					<Pagination
 						className={styles.paginationBar}
 						currentPage={currentPage}
-						totalCount={movies?.results?.length || 0}
+						totalCount={totalCount as number}
 						pageSize={PageSize}
 						onPageChange={page => setCurrentPage(page)}
 					/>
