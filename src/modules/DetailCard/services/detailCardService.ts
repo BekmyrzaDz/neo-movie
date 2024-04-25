@@ -58,11 +58,13 @@ const token = localStorage.getItem('access_token')
 const getMovieById = async ({ id }: { id: number }): Promise<IMovie> => {
 	let response
 
-	token
-		? (response = await axios.get(`/movie/detail/${id}/`, {
-				headers: { Authorization: `Bearer ${token}` },
-		  }))
-		: (response = await axios.get(`/movie/detail/${id}/`))
+	if (token) {
+		response = await axios.get(`/movie/detail/${id}/`, {
+			headers: { Authorization: `Bearer ${token}` },
+		})
+	} else {
+		response = await axios.get(`/movie/detail/${id}/`)
+	}
 
 	return response.data
 }
