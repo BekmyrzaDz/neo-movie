@@ -26,6 +26,8 @@ interface IMoviesByTypeParams {
 	genre: string[] | undefined
 	country: string[] | undefined
 	year: string | undefined
+	page?: number
+	limit?: number
 }
 
 // Fetch Movies by type Action

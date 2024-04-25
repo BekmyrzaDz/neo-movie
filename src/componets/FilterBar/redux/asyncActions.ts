@@ -15,7 +15,7 @@ interface IMovie {
 
 interface IMovieListData {
 	page: number
-	count1: number
+	count: number
 	next: string
 	previous: string | null
 	results: IMovie[]
@@ -26,6 +26,8 @@ interface IMoviesByTypeParams {
 	genre: string[] | undefined
 	country: string[] | undefined
 	year: string | undefined
+	page?: number
+	limit?: number
 }
 
 // Fetch Movies by type Action

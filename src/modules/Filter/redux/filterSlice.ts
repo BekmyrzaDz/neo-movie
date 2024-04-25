@@ -26,6 +26,8 @@ interface IFilteredParams {
 	genre: string[]
 	country: string[]
 	year: string | undefined
+	page?: number
+	limit?: number
 }
 
 interface IHomeState {

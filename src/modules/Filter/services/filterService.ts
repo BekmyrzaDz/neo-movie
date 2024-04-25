@@ -24,6 +24,8 @@ interface IMoviesByTypeParams {
 	genre: string[] | undefined
 	country: string[] | undefined
 	year: string | undefined
+	page?: number
+	limit?: number
 }
 
 // Get Movies By Type
@@ -32,9 +34,14 @@ const getMoviesByType = async ({
 	year,
 	country,
 	genre,
+	page,
+	limit,
 }: IMoviesByTypeParams): Promise<IMovieListData> => {
+	const newPage = page ? `&page=${page}` : ''
+	const newLimit = limit ? `&limit=${limit}` : ''
+
 	const response = await axios.get(
-		`/movie/list/?media_type_name=${category}&release_year=${year}&country_of_origin=${country}&genres=${genre}`
+		`/movie/list/?media_type_name=${category}&release_year=${year}&country_of_origin=${country}&genres=${genre}${newPage}${newLimit}`
 	)
 
 	return response.data

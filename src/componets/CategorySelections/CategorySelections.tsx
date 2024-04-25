@@ -31,6 +31,8 @@ interface IFilteredParams {
 	genre: string[] | undefined
 	country: string[] | undefined
 	year: string
+	page?: number
+	limit?: number
 }
 
 interface ICategorySelections {
@@ -38,8 +40,8 @@ interface ICategorySelections {
 	categoryType?: string
 	categorySelection?: ICard[]
 	filteredParams?: IFilteredParams
-	handleCategoryClick?: () => void
-	handleGenreClick?: () => void
+	page?: number
+	limit?: number
 }
 
 const CategorySelections: FC<ICategorySelections> = ({
@@ -47,6 +49,8 @@ const CategorySelections: FC<ICategorySelections> = ({
 	categoryType,
 	categorySelection,
 	filteredParams,
+	page,
+	limit,
 }) => {
 	const dispatch = useAppDispatch()
 	const filterParams = useAppSelector(state => state.filter?.filteredParams)
@@ -59,13 +63,11 @@ const CategorySelections: FC<ICategorySelections> = ({
 			genre: filterParams?.genre.map(g => g.toLowerCase()),
 			country: filterParams?.country.map(c => c.toLowerCase()),
 			year: filterParams?.year || '',
+			page: page,
+			limit: limit,
 		}
 
-		try {
-			dispatch(fetchMoviesByType(movieParams))
-		} catch (error) {
-			console.log(error)
-		}
+		dispatch(fetchMoviesByType(movieParams))
 	}
 
 	const handleGenreClick = (param: string) => {
@@ -78,13 +80,11 @@ const CategorySelections: FC<ICategorySelections> = ({
 				?.map(g => g.toLowerCase()),
 			country: filterParams?.country?.map(c => c.toLowerCase()),
 			year: filterParams?.year || '',
+			page: page,
+			limit: limit,
 		}
 
-		try {
-			dispatch(fetchMoviesByType(movieParams))
-		} catch (error) {
-			console.log(error)
-		}
+		dispatch(fetchMoviesByType(movieParams))
 	}
 
 	const handleCountryClick = (param: string) => {
@@ -97,13 +97,11 @@ const CategorySelections: FC<ICategorySelections> = ({
 				?.filter(c => c.toLowerCase() !== param.toLowerCase())
 				.map(c => c.toLowerCase()),
 			year: filterParams?.year || '',
+			page: page,
+			limit: limit,
 		}
 
-		try {
-			dispatch(fetchMoviesByType(movieParams))
-		} catch (error) {
-			console.log(error)
-		}
+		dispatch(fetchMoviesByType(movieParams))
 	}
 
 	const handleYearClick = () => {
@@ -114,13 +112,11 @@ const CategorySelections: FC<ICategorySelections> = ({
 			genre: filterParams?.genre.map(g => g.toLowerCase()),
 			country: filterParams?.country.map(c => c.toLowerCase()),
 			year: '' as string,
+			page: page,
+			limit: limit,
 		}
 
-		try {
-			dispatch(fetchMoviesByType(movieParams))
-		} catch (error) {
-			console.log(error)
-		}
+		dispatch(fetchMoviesByType(movieParams))
 	}
 
 	interface INavList {

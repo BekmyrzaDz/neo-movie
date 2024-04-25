@@ -2,15 +2,21 @@ import clsx from 'clsx'
 import { Field, Form, Formik } from 'formik'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '..'
+import { Button, Spinner } from '..'
 import { cross, filterIcon } from '../../assets'
-import { useAppDispatch } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import styles from './FilterBar.module.scss'
 import { filterParams } from './FilterData'
 import { fetchMoviesByType } from './redux/asyncActions'
 import { setFilterParams } from './redux/filterBarSlice'
 
 const { categories, countries, genres, years } = filterParams
+
+interface FilterBar {
+	page?: number
+	limit?: number
+	setCurrentPage?: React.Dispatch<React.SetStateAction<number>>
+}
 
 interface IInitialValues {
 	category: string
@@ -26,16 +32,19 @@ const initialValues: IInitialValues = {
 	year: '',
 }
 
-const FilterBar: FC = () => {
+const FilterBar: FC<FilterBar> = ({ page, limit, setCurrentPage }) => {
 	const navigate = useNavigate()
 
 	const dispatch = useAppDispatch()
+	const { isLoading } = useAppSelector(state => state.filter)
 
 	interface IMoviesByTypeParams {
 		category: string
 		genre: string[]
 		country: string[]
 		year: string
+		page?: number
+		limit?: number
 	}
 
 	const handleSubmit = (values: IInitialValues) => {
@@ -44,20 +53,20 @@ const FilterBar: FC = () => {
 			genre: values.genre.map(g => g.toLowerCase()),
 			country: values.country.map(c => c.toLowerCase()),
 			year: values.year,
+			page: page,
+			limit: limit,
 		}
 
 		dispatch(setFilterParams(values))
-
-		try {
-			dispatch(fetchMoviesByType(movieParams))
-		} catch (error) {
-			console.log(error)
-		}
+		dispatch(fetchMoviesByType(movieParams))
+		if (setCurrentPage) setCurrentPage(1)
 
 		setTimeout(() => {
 			navigate('/filter')
 		}, 0)
 	}
+
+	if (isLoading) return <Spinner />
 
 	return (
 		<div className={styles.filterBar}>

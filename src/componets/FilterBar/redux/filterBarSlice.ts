@@ -1,5 +1,6 @@
 // import { IStudentState, IStudent } from '../types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { produce } from 'immer'
 import { fetchMoviesByType } from './asyncActions'
 
 interface IMovie {
@@ -15,7 +16,7 @@ interface IMovie {
 
 interface IMovieListData {
 	page: number
-	count1: number
+	count: number
 	next: string
 	previous: string | null
 	results: IMovie[]
@@ -57,7 +58,14 @@ export const filterSlice = createSlice({
 			state.filteredParams = action.payload
 		},
 		removeCategory: state => {
-			state.filteredParams && delete state.filteredParams?.category
+			return produce(state, (draft: IHomeState) => {
+				if (
+					draft.filteredParams?.category !== undefined &&
+					draft.filteredParams !== null
+				) {
+					draft.filteredParams.category = ''
+				}
+			})
 		},
 		removeGenre: (state, action) => {
 			if (state.filteredParams && Array.isArray(state.filteredParams.genre)) {
@@ -74,7 +82,14 @@ export const filterSlice = createSlice({
 			}
 		},
 		removeYear: state => {
-			delete state.filteredParams?.year
+			return produce(state, (draft: IHomeState) => {
+				if (
+					draft.filteredParams?.year !== undefined &&
+					draft.filteredParams !== null
+				) {
+					draft.filteredParams.year = ''
+				}
+			})
 		},
 	},
 	extraReducers: builder => {
