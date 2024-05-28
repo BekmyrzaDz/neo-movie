@@ -32,7 +32,7 @@ const Pagination: FC<IPaginationProps> = props => {
 
 	if (
 		currentPage === 0 ||
-		(paginationRange ? paginationRange?.length : 0) < 2
+		(paginationRange ? (paginationRange as number[])?.length : 0) < 2
 	) {
 		return null
 	}
@@ -45,8 +45,9 @@ const Pagination: FC<IPaginationProps> = props => {
 		onPageChange(currentPage - 1)
 	}
 
-	const lastPage =
-		paginationRange[(paginationRange ? paginationRange.length : 0) - 1]
+	const lastPage = (paginationRange as number[])[
+		(paginationRange as number[])?.length - 1
+	]
 
 	return (
 		<ul
@@ -62,8 +63,8 @@ const Pagination: FC<IPaginationProps> = props => {
 			>
 				<img className={clsx(styles.arrow, styles.left)} src={arrowLeft} />
 			</li>
-			{paginationRange?.map(pageNumber => {
-				if (pageNumber === DOTS) {
+			{(paginationRange as number[])?.map(pageNumber => {
+				if (pageNumber === Number(DOTS)) {
 					return (
 						<li
 							className={clsx(styles.paginationItem, styles.dots)}
