@@ -44,7 +44,7 @@ const ChangeProfilePassword = () => {
 			.required('Обязательное поле'),
 		password_confirm: Yup.string()
 			.min(8, 'Пароль должен содержать не менее 8 символов')
-			.oneOf([Yup.ref('new_password'), null], 'Пароли не совпадают')
+			.oneOf([Yup.ref('new_password'), undefined], 'Пароли не совпадают')
 			.required('Обязательное поле'),
 	})
 
